@@ -6,17 +6,18 @@ enum TenToZeroPrimitiveValue {
     Tie,
     NotPrimitive,
 }
-impl PrimitiveValue for TenToZeroPrimitiveValue {}
 
 enum TenToZeroMove {
     Take1,
     Take2,
 }
-impl Move for TenToZeroMove {}
 
 struct TenToZeroPosition {
     remaining_count: u32,
 }
+
+impl Move for TenToZeroMove {}
+impl PrimitiveValue for TenToZeroPrimitiveValue {}
 
 impl Position for TenToZeroPosition {
     type GameMove = TenToZeroMove;
