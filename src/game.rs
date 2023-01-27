@@ -1,20 +1,27 @@
+use super::{Move, Position, PrimitiveValue};
+
 enum GamePrimitiveValue {
     Win,
     Lose,
     Tie,
     NotPrimitive,
 }
+impl PrimitiveValue for GamePrimitiveValue {}
 
 enum GameMove {
     Take1,
     Take2,
 }
+impl Move for GameMove {}
 
 struct GamePosition {
     remaining_count: u32,
 }
 
-impl GamePosition {
+impl Position for GamePosition {
+    type T = GameMove;
+    type V = GamePrimitiveValue;
+
     fn do_move(&mut self, mov: GameMove) {
         match mov {
             GameMove::Take1 => self.remaining_count -= 1,

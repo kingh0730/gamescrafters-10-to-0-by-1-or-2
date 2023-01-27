@@ -1,9 +1,14 @@
+mod game;
+
 trait Move {}
 
 trait PrimitiveValue {}
 
-trait Position<T: Move, V: PrimitiveValue> {
-    fn do_move(&mut self, mov: T);
-    fn generate_moves(&self) -> Vec<T>;
-    fn primitive_value(&self) -> V;
+trait Position {
+    type T: Move;
+    type V: PrimitiveValue;
+
+    fn do_move(&mut self, mov: Self::T);
+    fn generate_moves(&self) -> Vec<Self::T>;
+    fn primitive_value(&self) -> Self::V;
 }
