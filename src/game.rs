@@ -49,7 +49,7 @@ impl Position for TenToZeroPosition {
         match self.remaining_count {
             2.. => vec![TenToZeroMove::Take1, TenToZeroMove::Take2],
             1 => vec![TenToZeroMove::Take1],
-            _ => panic!("Invalid remaining count"),
+            _ => vec![],
         }
     }
 
@@ -72,6 +72,5 @@ mod tests {
             let result = solve(TenToZeroPosition { remaining_count: i });
             println!("{i}: {:?}", result);
         }
-        // assert_eq!(result, 4);
     }
 }
