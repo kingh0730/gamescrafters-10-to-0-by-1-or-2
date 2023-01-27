@@ -1,4 +1,4 @@
-use super::{Move, Position, PrimitiveValue, Result};
+use crate::{Move, Position, PrimitiveValue, Result};
 
 #[derive(Debug)]
 enum TenToZeroPrimitiveValue {
@@ -58,5 +58,20 @@ impl Position for TenToZeroPosition {
             0 => TenToZeroPrimitiveValue::Lose,
             _ => TenToZeroPrimitiveValue::NotPrimitive,
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::TenToZeroPosition;
+    use crate::solve;
+
+    #[test]
+    fn it_works() {
+        for i in (0..=10).rev() {
+            let result = solve(TenToZeroPosition { remaining_count: i });
+            println!("{i}: {:?}", result);
+        }
+        // assert_eq!(result, 4);
     }
 }
