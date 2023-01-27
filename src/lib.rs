@@ -36,13 +36,16 @@ pub fn solve<T: Position>(position: T) -> Result {
         return result;
     }
 
-    let mut children_results = children(position).into_iter().map(|child| solve(child));
+    let children_results = children(position)
+        .into_iter()
+        .map(|child| solve(child))
+        .collect::<Vec<_>>();
 
-    if children_results.any(|result| result == Result::Lose) {
+    if children_results.iter().any(|r| *r == Result::Lose) {
         return Result::Win;
     }
 
-    if children_results.any(|result| result == Result::Tie) {
+    if children_results.iter().any(|r| *r == Result::Tie) {
         return Result::Tie;
     }
 
