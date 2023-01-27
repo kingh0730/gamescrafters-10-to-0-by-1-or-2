@@ -11,7 +11,8 @@ enum TwentyFiveToZeroPrimitiveValue {
 #[derive(Debug)]
 enum TwentyFiveToZeroMove {
     Take1,
-    Take2,
+    Take3,
+    Take4,
 }
 
 #[derive(Debug)]
@@ -39,7 +40,8 @@ impl Position for TwentyFiveToZeroPosition {
     fn do_move(&self, mov: TwentyFiveToZeroMove) -> TwentyFiveToZeroPosition {
         let remaining_count = match mov {
             TwentyFiveToZeroMove::Take1 => self.remaining_count - 1,
-            TwentyFiveToZeroMove::Take2 => self.remaining_count - 2,
+            TwentyFiveToZeroMove::Take3 => self.remaining_count - 3,
+            TwentyFiveToZeroMove::Take4 => self.remaining_count - 4,
         };
 
         TwentyFiveToZeroPosition { remaining_count }
@@ -47,8 +49,13 @@ impl Position for TwentyFiveToZeroPosition {
 
     fn generate_moves(&self) -> Vec<TwentyFiveToZeroMove> {
         match self.remaining_count {
-            2.. => vec![TwentyFiveToZeroMove::Take1, TwentyFiveToZeroMove::Take2],
-            1 => vec![TwentyFiveToZeroMove::Take1],
+            4.. => vec![
+                TwentyFiveToZeroMove::Take1,
+                TwentyFiveToZeroMove::Take3,
+                TwentyFiveToZeroMove::Take4,
+            ],
+            3 => vec![TwentyFiveToZeroMove::Take1, TwentyFiveToZeroMove::Take3],
+            1..=2 => vec![TwentyFiveToZeroMove::Take1],
             _ => vec![],
         }
     }
@@ -68,7 +75,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        for i in (0..=10).rev() {
+        for i in (0..=25).rev() {
             let result = solve(TwentyFiveToZeroPosition { remaining_count: i });
             println!("{i}: {:?}", result);
         }
