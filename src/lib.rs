@@ -1,7 +1,7 @@
 mod game;
 
 #[derive(Debug, PartialEq, Eq)]
-pub enum Result {
+pub enum GameResult {
     Win,
     Lose,
     Tie,
@@ -11,7 +11,7 @@ pub enum Result {
 pub trait Move {}
 
 pub trait PrimitiveValue {
-    fn result(&self) -> Option<Result>;
+    fn result(&self) -> Option<GameResult>;
 }
 
 pub trait Position {
@@ -31,7 +31,7 @@ fn children<T: Position>(position: T) -> Vec<T> {
         .collect()
 }
 
-pub fn solve<T: Position>(position: T) -> Result {
+pub fn solve<T: Position>(position: T) -> GameResult {
     if let Some(result) = position.primitive_value().result() {
         return result;
     }
@@ -41,13 +41,13 @@ pub fn solve<T: Position>(position: T) -> Result {
         .map(|child| solve(child))
         .collect::<Vec<_>>();
 
-    if children_results.iter().any(|r| *r == Result::Lose) {
-        return Result::Win;
+    if children_results.iter().any(|r| *r == GameResult::Lose) {
+        return GameResult::Win;
     }
 
-    if children_results.iter().any(|r| *r == Result::Tie) {
-        return Result::Tie;
+    if children_results.iter().any(|r| *r == GameResult::Tie) {
+        return GameResult::Tie;
     }
 
-    Result::Lose
+    GameResult::Lose
 }

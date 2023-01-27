@@ -1,4 +1,4 @@
-use crate::{Move, Position, PrimitiveValue, Result};
+use crate::{GameResult, Move, Position, PrimitiveValue};
 
 #[derive(Debug)]
 enum TenToZeroPrimitiveValue {
@@ -22,11 +22,11 @@ struct TenToZeroPosition {
 impl Move for TenToZeroMove {}
 
 impl PrimitiveValue for TenToZeroPrimitiveValue {
-    fn result(&self) -> Option<Result> {
+    fn result(&self) -> Option<GameResult> {
         match self {
-            TenToZeroPrimitiveValue::Win => Some(Result::Win),
-            TenToZeroPrimitiveValue::Lose => Some(Result::Lose),
-            TenToZeroPrimitiveValue::Tie => Some(Result::Tie),
+            TenToZeroPrimitiveValue::Win => Some(GameResult::Win),
+            TenToZeroPrimitiveValue::Lose => Some(GameResult::Lose),
+            TenToZeroPrimitiveValue::Tie => Some(GameResult::Tie),
             TenToZeroPrimitiveValue::NotPrimitive => None,
         }
     }
