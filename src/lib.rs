@@ -1,4 +1,5 @@
-mod game;
+mod game_10_to_0;
+mod game_25_to_0;
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum GameResult {
