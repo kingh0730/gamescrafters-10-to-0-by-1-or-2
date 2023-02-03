@@ -1,9 +1,10 @@
 use std::collections::HashMap;
+use std::hash::Hash;
 
 mod game_10_to_0;
 mod game_25_to_0;
 
-#[derive(Debug, PartialEq, Eq)]
+#[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameResult {
     Win,
     Lose,
@@ -17,7 +18,7 @@ pub trait PrimitiveValue {
     fn result(&self) -> Option<GameResult>;
 }
 
-pub trait Position {
+pub trait Position: Eq + Hash {
     type GameMove: Move;
     type GamePrimitiveValue: PrimitiveValue;
 
@@ -26,7 +27,7 @@ pub trait Position {
     fn primitive_value(&self) -> Self::GamePrimitiveValue;
 }
 
-struct Solver<T: Position> {
+pub struct Solver<T: Position> {
     memoized_results: HashMap<T, GameResult>,
 }
 
@@ -43,7 +44,7 @@ impl<T: Position> Solver<T> {
             .collect()
     }
 
-    pub fn solve(&self, position: T) -> GameResult {
+    fn solve_without_memoization(&self, position: T) -> GameResult {
         if let Some(result) = position.primitive_value().result() {
             return result;
         }
@@ -63,5 +64,13 @@ impl<T: Position> Solver<T> {
         }
 
         GameResult::Lose
+    }
+
+    pub fn solve(&self, position: T) -> GameResult {
+        if let Some(result) = self.memoized_results.get(&position) {
+            return *result;
+        }
+
+        self.solve_without_memoization(position)
     }
 }
