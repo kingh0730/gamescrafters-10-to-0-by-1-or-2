@@ -31,6 +31,10 @@ struct Solver<T: Position> {
 }
 
 impl<T: Position> Solver<T> {
+    pub fn new(memoized_results: HashMap<T, GameResult>) -> Self {
+        Self { memoized_results }
+    }
+
     fn children(&self, position: T) -> Vec<T> {
         position
             .generate_moves()
