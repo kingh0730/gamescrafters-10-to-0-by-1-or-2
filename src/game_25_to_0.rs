@@ -2,9 +2,9 @@ use crate::{GameResult, Move, Position, PrimitiveValue};
 
 #[derive(Debug)]
 enum TwentyFiveToZeroPrimitiveValue {
-    Win,
+    _Win,
     Lose,
-    Tie,
+    _Tie,
     NotPrimitive,
 }
 
@@ -25,9 +25,9 @@ impl Move for TwentyFiveToZeroMove {}
 impl PrimitiveValue for TwentyFiveToZeroPrimitiveValue {
     fn result(&self) -> Option<GameResult> {
         match self {
-            TwentyFiveToZeroPrimitiveValue::Win => Some(GameResult::Win),
+            TwentyFiveToZeroPrimitiveValue::_Win => Some(GameResult::Win),
             TwentyFiveToZeroPrimitiveValue::Lose => Some(GameResult::Lose),
-            TwentyFiveToZeroPrimitiveValue::Tie => Some(GameResult::Tie),
+            TwentyFiveToZeroPrimitiveValue::_Tie => Some(GameResult::Tie),
             TwentyFiveToZeroPrimitiveValue::NotPrimitive => None,
         }
     }
