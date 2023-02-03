@@ -15,7 +15,7 @@ enum TwentyFiveToZeroMove {
     Take4,
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq, Hash)]
 struct TwentyFiveToZeroPosition {
     remaining_count: u32,
 }
