@@ -64,12 +64,15 @@ impl Position for TenToZeroPosition {
 #[cfg(test)]
 mod tests {
     use super::TenToZeroPosition;
-    use crate::solve;
+    use crate::Solver;
+    use std::collections::HashMap;
 
     #[test]
     fn it_works() {
+        let solver = Solver::new(HashMap::new());
+
         for i in (0..=10).rev() {
-            let result = solve(TenToZeroPosition { remaining_count: i });
+            let result = solver.solve(TenToZeroPosition { remaining_count: i });
             println!("{i}: {:?}", result);
         }
     }
