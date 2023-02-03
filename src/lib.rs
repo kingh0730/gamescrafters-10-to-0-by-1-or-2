@@ -1,3 +1,5 @@
+use std::collections::HashMap;
+
 mod game_10_to_0;
 mod game_25_to_0;
 
@@ -24,31 +26,38 @@ pub trait Position {
     fn primitive_value(&self) -> Self::GamePrimitiveValue;
 }
 
-fn children<T: Position>(position: T) -> Vec<T> {
-    position
-        .generate_moves()
-        .into_iter()
-        .map(|mov| position.do_move(mov))
-        .collect()
+struct Solver<T: Position> {
+    memoized_results: HashMap<T, GameResult>,
 }
 
-pub fn solve<T: Position>(position: T) -> GameResult {
-    if let Some(result) = position.primitive_value().result() {
-        return result;
+impl<T: Position> Solver<T> {
+    fn children(&self, position: T) -> Vec<T> {
+        position
+            .generate_moves()
+            .into_iter()
+            .map(|mov| position.do_move(mov))
+            .collect()
     }
 
-    let children_results = children(position)
-        .into_iter()
-        .map(|child| solve(child))
-        .collect::<Vec<_>>();
+    pub fn solve(&self, position: T) -> GameResult {
+        if let Some(result) = position.primitive_value().result() {
+            return result;
+        }
 
-    if children_results.iter().any(|r| *r == GameResult::Lose) {
-        return GameResult::Win;
+        let children_results = self
+            .children(position)
+            .into_iter()
+            .map(|child| self.solve(child))
+            .collect::<Vec<_>>();
+
+        if children_results.iter().any(|r| *r == GameResult::Lose) {
+            return GameResult::Win;
+        }
+
+        if children_results.iter().any(|r| *r == GameResult::Tie) {
+            return GameResult::Tie;
+        }
+
+        GameResult::Lose
     }
-
-    if children_results.iter().any(|r| *r == GameResult::Tie) {
-        return GameResult::Tie;
-    }
-
-    GameResult::Lose
 }
