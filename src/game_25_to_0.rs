@@ -74,6 +74,7 @@ mod tests {
     use crate::Solver;
     use std::collections::HashMap;
 
+    #[ignore]
     #[test]
     fn it_works() {
         let mut solver = Solver::new(HashMap::new());

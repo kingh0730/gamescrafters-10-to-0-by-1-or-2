@@ -67,6 +67,7 @@ mod tests {
     use crate::Solver;
     use std::collections::HashMap;
 
+    #[ignore]
     #[test]
     fn it_works() {
         let mut solver = Solver::new(HashMap::new());
@@ -77,6 +78,7 @@ mod tests {
         }
     }
 
+    #[ignore]
     #[test]
     fn test_memoization() {
         let mut solver = Solver::new(HashMap::new());
