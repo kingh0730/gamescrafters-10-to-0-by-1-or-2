@@ -76,4 +76,16 @@ mod tests {
             println!("{i}: {:?}", result);
         }
     }
+
+    #[test]
+    fn test_memoization() {
+        let mut solver = Solver::new(HashMap::new());
+
+        for i in (0..=100).rev() {
+            let result = solver.solve(TenToZeroPosition { remaining_count: i });
+            println!("{i}: {:?}", result);
+        }
+
+        println!("{:#?}", solver);
+    }
 }

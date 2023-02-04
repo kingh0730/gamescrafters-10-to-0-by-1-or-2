@@ -27,6 +27,7 @@ pub trait Position: Eq + Hash {
     fn primitive_value(&self) -> Self::GamePrimitiveValue;
 }
 
+#[derive(Debug)]
 pub struct Solver<T: Position> {
     memoized_results: HashMap<T, GameResult>,
 }
