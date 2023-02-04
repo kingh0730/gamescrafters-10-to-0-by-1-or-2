@@ -128,11 +128,38 @@ mod tests {
     fn counts() {
         let mut solver = Solver::new(HashMap::new());
 
-        let result = solver.solve(TicTacToePosition {
+        solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],
             player: TicTacToePlayer::X,
         });
 
-        println!("{:?}", result);
+        let wins = solver
+            .memoized_results
+            .iter()
+            .filter(|(_, &r)| r == GameResult::Win)
+            .count();
+
+        let loses = solver
+            .memoized_results
+            .iter()
+            .filter(|(_, &r)| r == GameResult::Lose)
+            .count();
+
+        let ties = solver
+            .memoized_results
+            .iter()
+            .filter(|(_, &r)| r == GameResult::Tie)
+            .count();
+
+        let total = solver
+            .memoized_results
+            .iter()
+            .filter(|(_, &r)| r == GameResult::Tie)
+            .count();
+
+        println!("wins: {}", wins);
+        println!("loses: {}", loses);
+        println!("ties: {}", ties);
+        println!("total: {}", total);
     }
 }
