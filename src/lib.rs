@@ -3,6 +3,7 @@ use std::hash::Hash;
 
 mod game_10_to_0;
 mod game_25_to_0;
+mod game_tic_tac_toe;
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameResult {
