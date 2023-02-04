@@ -109,11 +109,23 @@ impl Position for TicTacToePosition {
 #[cfg(test)]
 mod tests {
     use super::TicTacToePosition;
-    use crate::{game_tic_tac_toe::TicTacToePlayer, Solver};
+    use crate::{game_tic_tac_toe::TicTacToePlayer, GameResult, Solver};
     use std::collections::HashMap;
 
     #[test]
     fn it_works() {
+        let mut solver = Solver::new(HashMap::new());
+
+        let result = solver.solve(TicTacToePosition {
+            board: [[None, None, None], [None, None, None], [None, None, None]],
+            player: TicTacToePlayer::X,
+        });
+
+        assert_eq!(result, GameResult::Tie);
+    }
+
+    #[test]
+    fn counts() {
         let mut solver = Solver::new(HashMap::new());
 
         let result = solver.solve(TicTacToePosition {
