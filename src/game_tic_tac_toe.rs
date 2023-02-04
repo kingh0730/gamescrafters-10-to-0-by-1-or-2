@@ -80,6 +80,28 @@ impl Position for TicTacToePosition {
     }
 
     fn primitive_value(&self) -> TicTacToePrimitiveValue {
-        TicTacToePrimitiveValue::NotPrimitive
+        let opponent = self.player.next_player();
+
+        if (0..LENGTH).any(|i| (0..LENGTH).all(|j| self.board[i][j] == Some(opponent))) {
+            return TicTacToePrimitiveValue::Lose;
+        }
+
+        if (0..LENGTH).any(|i| (0..LENGTH).all(|j| self.board[j][i] == Some(opponent))) {
+            return TicTacToePrimitiveValue::Lose;
+        }
+
+        if (0..LENGTH).all(|i| self.board[i][i] == Some(opponent)) {
+            return TicTacToePrimitiveValue::Lose;
+        }
+
+        if (0..LENGTH).all(|i| self.board[i][LENGTH - i] == Some(opponent)) {
+            return TicTacToePrimitiveValue::Lose;
+        }
+
+        if (0..LENGTH).any(|i| (0..LENGTH).any(|j| self.board[i][j] == None)) {
+            return TicTacToePrimitiveValue::NotPrimitive;
+        }
+
+        TicTacToePrimitiveValue::Tie
     }
 }
