@@ -94,7 +94,7 @@ impl Position for TicTacToePosition {
             return TicTacToePrimitiveValue::Lose;
         }
 
-        if (0..LENGTH).all(|i| self.board[i][LENGTH - i] == Some(opponent)) {
+        if (0..LENGTH).all(|i| self.board[i][LENGTH - 1 - i] == Some(opponent)) {
             return TicTacToePrimitiveValue::Lose;
         }
 
@@ -103,5 +103,24 @@ impl Position for TicTacToePosition {
         }
 
         TicTacToePrimitiveValue::Tie
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::TicTacToePosition;
+    use crate::{game_tic_tac_toe::TicTacToePlayer, Solver};
+    use std::collections::HashMap;
+
+    #[test]
+    fn it_works() {
+        let mut solver = Solver::new(HashMap::new());
+
+        let result = solver.solve(TicTacToePosition {
+            board: [[None, None, None], [None, None, None], [None, None, None]],
+            player: TicTacToePlayer::X,
+        });
+
+        println!("{:?}", result);
     }
 }
