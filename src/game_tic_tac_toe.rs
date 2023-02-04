@@ -17,7 +17,7 @@ impl TicTacToePlayer {
     }
 }
 
-#[derive(Debug)]
+#[derive(Debug, PartialEq, Eq)]
 enum TicTacToePrimitiveValue {
     _Win,
     Lose,
@@ -109,7 +109,10 @@ impl Position for TicTacToePosition {
 #[cfg(test)]
 mod tests {
     use super::TicTacToePosition;
-    use crate::{game_tic_tac_toe::TicTacToePlayer, GameResult, Solver};
+    use crate::{
+        game_tic_tac_toe::{TicTacToePlayer, TicTacToePrimitiveValue},
+        GameResult, Position, Solver,
+    };
     use std::collections::HashMap;
 
     #[test]
@@ -136,25 +139,25 @@ mod tests {
         let wins = solver
             .memoized_results
             .iter()
-            .filter(|(_, &r)| r == GameResult::Win)
+            .filter(|(_, r)| **r == GameResult::Win)
             .count();
 
         let loses = solver
             .memoized_results
             .iter()
-            .filter(|(_, &r)| r == GameResult::Lose)
+            .filter(|(_, r)| **r == GameResult::Lose)
             .count();
 
         let ties = solver
             .memoized_results
             .iter()
-            .filter(|(_, &r)| r == GameResult::Tie)
+            .filter(|(_, r)| **r == GameResult::Tie)
             .count();
 
         let total = solver
             .memoized_results
             .iter()
-            .filter(|(_, &r)| r == GameResult::Tie)
+            .filter(|(_, r)| **r == GameResult::Tie)
             .count();
 
         println!("wins: {}", wins);
