@@ -19,7 +19,7 @@ impl TicTacToePlayer {
 
 #[derive(Debug)]
 enum TicTacToePrimitiveValue {
-    Win,
+    _Win,
     Lose,
     Tie,
     NotPrimitive,
@@ -42,7 +42,7 @@ impl Move for TicTacToeMove {}
 impl PrimitiveValue for TicTacToePrimitiveValue {
     fn result(&self) -> Option<GameResult> {
         match self {
-            TicTacToePrimitiveValue::Win => Some(GameResult::Win),
+            TicTacToePrimitiveValue::_Win => Some(GameResult::Win),
             TicTacToePrimitiveValue::Lose => Some(GameResult::Lose),
             TicTacToePrimitiveValue::Tie => Some(GameResult::Tie),
             TicTacToePrimitiveValue::NotPrimitive => None,
