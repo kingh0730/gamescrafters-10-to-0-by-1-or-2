@@ -66,7 +66,17 @@ impl Position for TicTacToePosition {
     }
 
     fn generate_moves(&self) -> Vec<TicTacToeMove> {
-        vec![]
+        let mut moves = vec![];
+
+        self.board.iter().enumerate().for_each(|(i, line)| {
+            line.iter().enumerate().for_each(|(j, cell)| {
+                if let None = cell {
+                    moves.push(TicTacToeMove { x: i, y: j });
+                }
+            })
+        });
+
+        moves
     }
 
     fn primitive_value(&self) -> TicTacToePrimitiveValue {
