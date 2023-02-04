@@ -154,15 +154,49 @@ mod tests {
             .filter(|(_, r)| **r == GameResult::Tie)
             .count();
 
-        let total = solver
+        let total = solver.memoized_results.iter().count();
+
+        let prim_wins = solver
             .memoized_results
             .iter()
-            .filter(|(_, r)| **r == GameResult::Tie)
+            .filter(|(p, r)| {
+                **r == GameResult::Win
+                    && p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            })
+            .count();
+
+        let prim_loses = solver
+            .memoized_results
+            .iter()
+            .filter(|(p, r)| {
+                **r == GameResult::Lose
+                    && p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            })
+            .count();
+
+        let prim_ties = solver
+            .memoized_results
+            .iter()
+            .filter(|(p, r)| {
+                **r == GameResult::Tie
+                    && p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            })
+            .count();
+
+        let prim_total = solver
+            .memoized_results
+            .iter()
+            .filter(|(p, _)| p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive)
             .count();
 
         println!("wins: {}", wins);
         println!("loses: {}", loses);
         println!("ties: {}", ties);
         println!("total: {}", total);
+
+        println!("primitive wins: {}", prim_wins);
+        println!("primitive loses: {}", prim_loses);
+        println!("primitive ties: {}", prim_ties);
+        println!("primitive total: {}", prim_total);
     }
 }
