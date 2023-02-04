@@ -36,7 +36,7 @@ impl<T: Position> Solver<T> {
         Self { memoized_results }
     }
 
-    fn children(&self, position: T) -> Vec<T> {
+    fn children(&self, position: &T) -> Vec<T> {
         position
             .generate_moves()
             .into_iter()
@@ -44,7 +44,7 @@ impl<T: Position> Solver<T> {
             .collect()
     }
 
-    fn solve_without_memoization(&self, position: T) -> GameResult {
+    fn solve_not_memoized(&mut self, position: &T) -> GameResult {
         if let Some(result) = position.primitive_value().result() {
             return result;
         }
@@ -66,11 +66,15 @@ impl<T: Position> Solver<T> {
         GameResult::Lose
     }
 
-    pub fn solve(&self, position: T) -> GameResult {
+    pub fn solve(&mut self, position: T) -> GameResult {
         if let Some(result) = self.memoized_results.get(&position) {
             return *result;
         }
 
-        self.solve_without_memoization(position)
+        let result = self.solve_not_memoized(&position);
+
+        self.memoized_results.insert(position, result);
+
+        result
     }
 }

@@ -69,7 +69,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let solver = Solver::new(HashMap::new());
+        let mut solver = Solver::new(HashMap::new());
 
         for i in (0..=10).rev() {
             let result = solver.solve(TenToZeroPosition { remaining_count: i });

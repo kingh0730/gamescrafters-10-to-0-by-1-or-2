@@ -76,7 +76,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let solver = Solver::new(HashMap::new());
+        let mut solver = Solver::new(HashMap::new());
 
         for i in (0..=25).rev() {
             let result = solver.solve(TwentyFiveToZeroPosition { remaining_count: i });
