@@ -2,7 +2,7 @@ use crate::{GameResult, Move, Position, PrimitiveValue};
 
 const LENGTH: usize = 3;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone)]
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
 enum TicTacToePlayer {
     X,
     O,
@@ -27,8 +27,8 @@ enum TicTacToePrimitiveValue {
 
 #[derive(Debug)]
 struct TicTacToeMove {
-    x: u32,
-    y: u32,
+    x: usize,
+    y: usize,
 }
 
 #[derive(Debug, PartialEq, Eq, Hash)]
@@ -55,7 +55,9 @@ impl Position for TicTacToePosition {
     type GamePrimitiveValue = TicTacToePrimitiveValue;
 
     fn do_move(&self, mov: TicTacToeMove) -> TicTacToePosition {
-        let board = self.board.clone();
+        let mut board = self.board.clone();
+
+        board[mov.x][mov.y] = Some(self.player);
 
         TicTacToePosition {
             board,
