@@ -4,7 +4,10 @@ pub trait RecursiveValue {
         Self: Sized;
 }
 
-pub trait ToRecursiveValue<RV: RecursiveValue> {
+pub trait ToRecursiveValue<RV>
+where
+    RV: RecursiveValue,
+{
     fn to_recursive_value(&self) -> Option<RV>;
 }
 
