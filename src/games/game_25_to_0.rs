@@ -77,9 +77,10 @@ impl Position for TwentyFiveToZeroPosition {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::HashMap;
+
     use super::TwentyFiveToZeroPosition;
     use crate::solver::{GameResult, Solver};
-    use std::collections::HashMap;
 
     #[test]
     fn it_works() {

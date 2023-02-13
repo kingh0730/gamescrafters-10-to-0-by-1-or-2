@@ -115,9 +115,10 @@ impl Position for TicTacToePosition {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::HashMap;
+
     use super::{TicTacToePlayer, TicTacToePosition};
     use crate::solver::{GameResult, Solver};
-    use std::collections::HashMap;
 
     #[test]
     fn it_works() {

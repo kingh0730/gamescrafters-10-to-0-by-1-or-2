@@ -82,10 +82,8 @@ impl<T: Position> Solver<T> {
 mod tests {
     use std::collections::HashMap;
 
-    use crate::{
-        games::game_tic_tac_toe::{TicTacToePlayer, TicTacToePosition},
-        solver::{GameResult, Position, PrimitiveValue, Solver},
-    };
+    use super::{GameResult, Position, PrimitiveValue, Solver};
+    use crate::games::game_tic_tac_toe::{TicTacToePlayer, TicTacToePosition};
 
     #[test]
     fn it_works() {

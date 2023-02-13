@@ -70,9 +70,10 @@ impl Position for TenToZeroPosition {
 
 #[cfg(test)]
 mod tests {
+    use std::collections::HashMap;
+
     use super::TenToZeroPosition;
     use crate::solver::{GameResult, Solver};
-    use std::collections::HashMap;
 
     #[test]
     fn it_works() {
