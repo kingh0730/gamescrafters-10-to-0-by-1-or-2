@@ -40,7 +40,7 @@ struct TicTacToePosition {
 impl Move for TicTacToeMove {}
 
 impl PrimitiveValue for TicTacToePrimitiveValue {
-    fn result(&self) -> Option<GameResult> {
+    fn to_game_result(&self) -> Option<GameResult> {
         match self {
             TicTacToePrimitiveValue::_Win => Some(GameResult::Win),
             TicTacToePrimitiveValue::Lose => Some(GameResult::Lose),

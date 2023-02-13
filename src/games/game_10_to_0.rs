@@ -22,7 +22,7 @@ struct TenToZeroPosition {
 impl Move for TenToZeroMove {}
 
 impl PrimitiveValue for TenToZeroPrimitiveValue {
-    fn result(&self) -> Option<GameResult> {
+    fn to_game_result(&self) -> Option<GameResult> {
         match self {
             TenToZeroPrimitiveValue::_Win => Some(GameResult::Win),
             TenToZeroPrimitiveValue::Lose => Some(GameResult::Lose),

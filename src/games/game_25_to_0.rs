@@ -23,7 +23,7 @@ struct TwentyFiveToZeroPosition {
 impl Move for TwentyFiveToZeroMove {}
 
 impl PrimitiveValue for TwentyFiveToZeroPrimitiveValue {
-    fn result(&self) -> Option<GameResult> {
+    fn to_game_result(&self) -> Option<GameResult> {
         match self {
             TwentyFiveToZeroPrimitiveValue::_Win => Some(GameResult::Win),
             TwentyFiveToZeroPrimitiveValue::Lose => Some(GameResult::Lose),

@@ -12,7 +12,7 @@ pub enum GameResult {
 pub trait Move {}
 
 pub trait PrimitiveValue {
-    fn result(&self) -> Option<GameResult>;
+    fn to_game_result(&self) -> Option<GameResult>;
 }
 
 pub trait Position: Eq + Hash {
@@ -43,7 +43,7 @@ impl<T: Position> Solver<T> {
     }
 
     fn solve_not_memoized(&mut self, position: &T) -> GameResult {
-        if let Some(result) = position.primitive_value().result() {
+        if let Some(result) = position.primitive_value().to_game_result() {
             return result;
         }
 
