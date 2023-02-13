@@ -1,12 +1,12 @@
+mod player_move;
 mod recursive_value;
 
 use std::collections::HashMap;
 use std::hash::Hash;
 
+pub use self::player_move::PlayerMove;
 pub use self::recursive_value::GameResult;
 use self::recursive_value::RecursiveValue;
-
-pub trait Move {}
 
 pub trait PrimitiveValue {
     fn to_recursive_value<V: RecursiveValue>(&self) -> Option<V>;
@@ -14,7 +14,7 @@ pub trait PrimitiveValue {
 }
 
 pub trait Position: Eq + Hash {
-    type GameMove: Move;
+    type GameMove: PlayerMove;
     type GamePrimitiveValue: PrimitiveValue;
 
     fn do_move(&self, mov: Self::GameMove) -> Self;
