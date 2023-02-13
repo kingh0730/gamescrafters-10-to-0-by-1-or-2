@@ -64,16 +64,23 @@ impl Position for TenToZeroPosition {
 #[cfg(test)]
 mod tests {
     use super::TenToZeroPosition;
-    use crate::solver::Solver;
+    use crate::solver::{GameResult, Solver};
     use std::collections::HashMap;
 
-    #[ignore]
     #[test]
     fn it_works() {
         let mut solver = Solver::new(HashMap::new());
 
         for i in (0..=10).rev() {
             let result = solver.solve(TenToZeroPosition { remaining_count: i });
+
+            match i % 3 {
+                0 => assert_eq!(result, GameResult::Lose),
+                1 => assert_eq!(result, GameResult::Win),
+                2 => assert_eq!(result, GameResult::Win),
+                _ => (),
+            };
+
             println!("{i}: {:?}", result);
         }
     }
