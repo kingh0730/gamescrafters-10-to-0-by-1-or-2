@@ -1,4 +1,4 @@
-use crate::solver::{GameResult, Move, Position, PrimitiveValue};
+use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue};
 
 #[derive(Debug)]
 enum TenToZeroPrimitiveValue {
@@ -19,7 +19,7 @@ struct TenToZeroPosition {
     remaining_count: u32,
 }
 
-impl Move for TenToZeroMove {}
+impl PlayerMove for TenToZeroMove {}
 
 impl PrimitiveValue for TenToZeroPrimitiveValue {
     fn to_game_result(&self) -> Option<GameResult> {

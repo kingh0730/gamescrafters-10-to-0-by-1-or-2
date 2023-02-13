@@ -1,4 +1,4 @@
-use crate::solver::{GameResult, Move, Position, PrimitiveValue};
+use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue};
 
 const LENGTH: usize = 3;
 
@@ -37,7 +37,7 @@ pub struct TicTacToePosition {
     pub player: TicTacToePlayer,
 }
 
-impl Move for TicTacToeMove {}
+impl PlayerMove for TicTacToeMove {}
 
 impl PrimitiveValue for TicTacToePrimitiveValue {
     fn to_game_result(&self) -> Option<GameResult> {
