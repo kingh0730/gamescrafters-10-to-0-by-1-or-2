@@ -83,7 +83,7 @@ mod tests {
     use std::collections::HashMap;
 
     use super::{GameResult, Position, PrimitiveValue, Solver};
-    use crate::games::game_tic_tac_toe::{TicTacToePlayer, TicTacToePosition};
+    use crate::games::tic_tac_toe::{TicTacToePlayer, TicTacToePosition};
 
     #[test]
     fn it_works() {
