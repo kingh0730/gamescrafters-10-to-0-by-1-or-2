@@ -85,7 +85,6 @@ mod tests {
         }
     }
 
-    #[ignore]
     #[test]
     fn test_memoization() {
         let mut solver = Solver::new(HashMap::new());
