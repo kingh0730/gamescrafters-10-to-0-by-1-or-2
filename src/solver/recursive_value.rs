@@ -1,4 +1,4 @@
-pub trait RecursiveValue: Copy {
+pub trait RecursiveValue: Clone {
     fn recursion_step(children: &[Self]) -> Self
     where
         Self: Sized;

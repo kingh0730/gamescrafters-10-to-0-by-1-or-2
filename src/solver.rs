@@ -67,13 +67,13 @@ where
     }
 
     pub fn solve(&mut self, position: P) -> RV {
-        if let Some(&result) = self.memoized_map.get(&position) {
-            return result;
+        if let Some(result) = self.memoized_map.get(&position) {
+            return result.clone();
         }
 
         let result = self.solve_not_memoized(&position);
 
-        self.memoized_map.insert(position, result);
+        self.memoized_map.insert(position, result.clone());
 
         result
     }
