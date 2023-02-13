@@ -3,17 +3,9 @@ mod recursive_value;
 use std::collections::HashMap;
 use std::hash::Hash;
 
+pub use self::recursive_value::GameResult;
+
 use self::recursive_value::RecursiveValue;
-
-#[derive(Debug, PartialEq, Eq, Clone, Copy)]
-pub enum GameResult {
-    Win,
-    Lose,
-    Tie,
-    Draw,
-}
-
-impl RecursiveValue for GameResult {}
 
 pub trait Move {}
 
