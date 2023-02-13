@@ -1,23 +1,18 @@
 mod player_move;
+mod position;
 mod primitive_value;
 mod recursive_value;
 
 use std::collections::HashMap;
-use std::hash::Hash;
 use std::marker::PhantomData;
 
 pub use self::player_move::PlayerMove;
+pub use self::position::Position;
 pub use self::primitive_value::PrimitiveValue;
 pub use self::recursive_value::GameResult;
 pub use self::recursive_value::ToRecursiveValue;
 
 use self::recursive_value::RecursiveValue;
-
-pub trait Position<M, PV>: Eq + Hash {
-    fn do_move(&self, mov: M) -> Self;
-    fn generate_moves(&self) -> Vec<M>;
-    fn primitive_value(&self) -> PV;
-}
 
 #[derive(Debug)]
 pub struct Solver<P, M, PV, RV>
