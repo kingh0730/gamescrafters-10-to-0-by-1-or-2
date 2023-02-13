@@ -4,6 +4,10 @@ pub trait RecursiveValue {
         Self: Sized;
 }
 
+pub trait ToRecursiveValue<RV: RecursiveValue> {
+    fn to_recursive_value(&self) -> Option<RV>;
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameResult {
     Win,

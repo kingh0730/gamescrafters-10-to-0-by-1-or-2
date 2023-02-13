@@ -7,11 +7,9 @@ use std::marker::PhantomData;
 
 pub use self::player_move::PlayerMove;
 pub use self::recursive_value::GameResult;
-use self::recursive_value::RecursiveValue;
+pub use self::recursive_value::ToRecursiveValue;
 
-pub trait ToRecursiveValue<RV: RecursiveValue> {
-    fn to_recursive_value(&self) -> Option<RV>;
-}
+use self::recursive_value::RecursiveValue;
 
 pub trait PrimitiveValue {
     fn is_primitive(&self) -> bool;
