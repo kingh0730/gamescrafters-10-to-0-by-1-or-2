@@ -136,19 +136,19 @@ mod tests {
         let wins = solver
             .memoized_results
             .iter()
-            .filter(|(_, r)| **r == GameResult::Win)
+            .filter(|(_, &r)| r == GameResult::Win)
             .count();
 
         let loses = solver
             .memoized_results
             .iter()
-            .filter(|(_, r)| **r == GameResult::Lose)
+            .filter(|(_, &r)| r == GameResult::Lose)
             .count();
 
         let ties = solver
             .memoized_results
             .iter()
-            .filter(|(_, r)| **r == GameResult::Tie)
+            .filter(|(_, &r)| r == GameResult::Tie)
             .count();
 
         let total = solver.memoized_results.iter().count();
@@ -156,34 +156,36 @@ mod tests {
         let prim_wins = solver
             .memoized_results
             .iter()
-            .filter(|(p, r)| {
-                **r == GameResult::Win
-                    && p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            .filter(|(position, &r)| {
+                r == GameResult::Win
+                    && position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
             })
             .count();
 
         let prim_loses = solver
             .memoized_results
             .iter()
-            .filter(|(p, r)| {
-                **r == GameResult::Lose
-                    && p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            .filter(|(position, &r)| {
+                r == GameResult::Lose
+                    && position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
             })
             .count();
 
         let prim_ties = solver
             .memoized_results
             .iter()
-            .filter(|(p, r)| {
-                **r == GameResult::Tie
-                    && p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            .filter(|(position, &r)| {
+                r == GameResult::Tie
+                    && position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
             })
             .count();
 
         let prim_total = solver
             .memoized_results
             .iter()
-            .filter(|(p, _)| p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive)
+            .filter(|(position, _)| {
+                position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+            })
             .count();
 
         assert_eq!(2836, wins);
