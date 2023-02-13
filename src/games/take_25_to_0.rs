@@ -1,4 +1,4 @@
-use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue};
+use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue, ToRecursiveValue};
 
 #[derive(Debug)]
 enum TwentyFiveToZeroPrimitiveValue {
@@ -23,15 +23,6 @@ struct TwentyFiveToZeroPosition {
 impl PlayerMove for TwentyFiveToZeroMove {}
 
 impl PrimitiveValue for TwentyFiveToZeroPrimitiveValue {
-    fn to_game_result(&self) -> Option<GameResult> {
-        match self {
-            TwentyFiveToZeroPrimitiveValue::_Win => Some(GameResult::Win),
-            TwentyFiveToZeroPrimitiveValue::Lose => Some(GameResult::Lose),
-            TwentyFiveToZeroPrimitiveValue::_Tie => Some(GameResult::Tie),
-            TwentyFiveToZeroPrimitiveValue::NotPrimitive => None,
-        }
-    }
-
     fn is_primitive(&self) -> bool {
         match self {
             TwentyFiveToZeroPrimitiveValue::NotPrimitive => false,
@@ -40,10 +31,18 @@ impl PrimitiveValue for TwentyFiveToZeroPrimitiveValue {
     }
 }
 
-impl Position for TwentyFiveToZeroPosition {
-    type GameMove = TwentyFiveToZeroMove;
-    type GamePrimitiveValue = TwentyFiveToZeroPrimitiveValue;
+impl ToRecursiveValue<GameResult> for TwentyFiveToZeroPrimitiveValue {
+    fn to_recursive_value(&self) -> Option<GameResult> {
+        match self {
+            TwentyFiveToZeroPrimitiveValue::_Win => Some(GameResult::Win),
+            TwentyFiveToZeroPrimitiveValue::Lose => Some(GameResult::Lose),
+            TwentyFiveToZeroPrimitiveValue::_Tie => Some(GameResult::Tie),
+            TwentyFiveToZeroPrimitiveValue::NotPrimitive => None,
+        }
+    }
+}
 
+impl Position<TwentyFiveToZeroMove, TwentyFiveToZeroPrimitiveValue> for TwentyFiveToZeroPosition {
     fn do_move(&self, mov: TwentyFiveToZeroMove) -> TwentyFiveToZeroPosition {
         let remaining_count = match mov {
             TwentyFiveToZeroMove::Take1 => self.remaining_count - 1,

@@ -3,41 +3,51 @@ mod recursive_value;
 
 use std::collections::HashMap;
 use std::hash::Hash;
+use std::marker::PhantomData;
 
 pub use self::player_move::PlayerMove;
 pub use self::recursive_value::GameResult;
 use self::recursive_value::RecursiveValue;
 
+pub trait ToRecursiveValue<RV: RecursiveValue> {
+    fn to_recursive_value(&self) -> Option<RV>;
+}
+
 pub trait PrimitiveValue {
-    fn to_recursive_value<V: RecursiveValue>(&self) -> Option<V>;
     fn is_primitive(&self) -> bool;
 }
 
-pub trait Position: Eq + Hash {
-    type GameMove: PlayerMove;
-    type GamePrimitiveValue: PrimitiveValue;
-
-    fn do_move(&self, mov: Self::GameMove) -> Self;
-    fn generate_moves(&self) -> Vec<Self::GameMove>;
-    fn primitive_value(&self) -> Self::GamePrimitiveValue;
+pub trait Position<M, PV>: Eq + Hash {
+    fn do_move(&self, mov: M) -> Self;
+    fn generate_moves(&self) -> Vec<M>;
+    fn primitive_value(&self) -> PV;
 }
 
 #[derive(Debug)]
-pub struct Solver<P, RV>
+pub struct Solver<P, M, PV, RV>
 where
-    P: Position,
+    P: Position<M, PV>,
     RV: RecursiveValue,
 {
     memoized_map: HashMap<P, RV>,
+
+    _phantom_m: PhantomData<M>,
+    _phantom_pv: PhantomData<PV>,
 }
 
-impl<P, RV> Solver<P, RV>
+impl<P, M, PV, RV> Solver<P, M, PV, RV>
 where
-    P: Position,
+    P: Position<M, PV>,
+    PV: ToRecursiveValue<RV>,
     RV: RecursiveValue,
 {
     pub fn new(memoized_map: HashMap<P, RV>) -> Self {
-        Self { memoized_map }
+        Self {
+            memoized_map,
+
+            _phantom_m: PhantomData,
+            _phantom_pv: PhantomData,
+        }
     }
 
     fn children(&self, position: &P) -> Vec<P> {
@@ -84,7 +94,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let mut solver = Solver::<_, GameResult>::new(HashMap::new());
+        let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
         let result = solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],
@@ -96,7 +106,7 @@ mod tests {
 
     #[test]
     fn tic_tac_toe_counts() {
-        let mut solver = Solver::<_, GameResult>::new(HashMap::new());
+        let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
         solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],

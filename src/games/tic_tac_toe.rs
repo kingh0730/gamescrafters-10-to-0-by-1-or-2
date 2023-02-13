@@ -1,4 +1,4 @@
-use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue};
+use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue, ToRecursiveValue};
 
 const LENGTH: usize = 3;
 
@@ -40,15 +40,6 @@ pub struct TicTacToePosition {
 impl PlayerMove for TicTacToeMove {}
 
 impl PrimitiveValue for TicTacToePrimitiveValue {
-    fn to_game_result(&self) -> Option<GameResult> {
-        match self {
-            TicTacToePrimitiveValue::_Win => Some(GameResult::Win),
-            TicTacToePrimitiveValue::Lose => Some(GameResult::Lose),
-            TicTacToePrimitiveValue::Tie => Some(GameResult::Tie),
-            TicTacToePrimitiveValue::NotPrimitive => None,
-        }
-    }
-
     fn is_primitive(&self) -> bool {
         match self {
             TicTacToePrimitiveValue::NotPrimitive => false,
@@ -57,10 +48,18 @@ impl PrimitiveValue for TicTacToePrimitiveValue {
     }
 }
 
-impl Position for TicTacToePosition {
-    type GameMove = TicTacToeMove;
-    type GamePrimitiveValue = TicTacToePrimitiveValue;
+impl ToRecursiveValue<GameResult> for TicTacToePrimitiveValue {
+    fn to_recursive_value(&self) -> Option<GameResult> {
+        match self {
+            TicTacToePrimitiveValue::_Win => Some(GameResult::Win),
+            TicTacToePrimitiveValue::Lose => Some(GameResult::Lose),
+            TicTacToePrimitiveValue::Tie => Some(GameResult::Tie),
+            TicTacToePrimitiveValue::NotPrimitive => None,
+        }
+    }
+}
 
+impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePosition {
     fn do_move(&self, mov: TicTacToeMove) -> TicTacToePosition {
         let mut board = self.board.clone();
 
