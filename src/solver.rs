@@ -23,8 +23,12 @@ pub trait Position: Eq + Hash {
 }
 
 #[derive(Debug)]
-pub struct Solver<P: Position, V: RecursiveValue> {
-    memoized_map: HashMap<P, V>,
+pub struct Solver<P, RV>
+where
+    P: Position,
+    RV: RecursiveValue,
+{
+    memoized_map: HashMap<P, RV>,
 }
 
 impl<P, RV> Solver<P, RV>
