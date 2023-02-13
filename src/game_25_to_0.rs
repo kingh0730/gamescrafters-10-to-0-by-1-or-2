@@ -71,16 +71,27 @@ impl Position for TwentyFiveToZeroPosition {
 #[cfg(test)]
 mod tests {
     use super::TwentyFiveToZeroPosition;
-    use crate::solver::Solver;
+    use crate::solver::{GameResult, Solver};
     use std::collections::HashMap;
 
-    #[ignore]
     #[test]
     fn it_works() {
         let mut solver = Solver::new(HashMap::new());
 
         for i in (0..=25).rev() {
             let result = solver.solve(TwentyFiveToZeroPosition { remaining_count: i });
+
+            match i % 7 {
+                0 => assert_eq!(result, GameResult::Lose),
+                1 => assert_eq!(result, GameResult::Win),
+                2 => assert_eq!(result, GameResult::Lose),
+                3 => assert_eq!(result, GameResult::Win),
+                4 => assert_eq!(result, GameResult::Win),
+                5 => assert_eq!(result, GameResult::Win),
+                6 => assert_eq!(result, GameResult::Win),
+                _ => (),
+            };
+
             println!("{i}: {:?}", result);
         }
     }
