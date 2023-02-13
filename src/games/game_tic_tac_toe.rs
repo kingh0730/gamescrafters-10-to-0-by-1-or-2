@@ -115,8 +115,8 @@ impl Position for TicTacToePosition {
 
 #[cfg(test)]
 mod tests {
-    use super::{TicTacToePlayer, TicTacToePosition, TicTacToePrimitiveValue};
-    use crate::solver::{GameResult, Position, Solver};
+    use super::{TicTacToePlayer, TicTacToePosition};
+    use crate::solver::{GameResult, Position, PrimitiveValue, Solver};
     use std::collections::HashMap;
 
     #[test]
@@ -164,8 +164,7 @@ mod tests {
             .memoized_results
             .iter()
             .filter(|(position, &r)| {
-                r == GameResult::Win
-                    && position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+                r == GameResult::Win && position.primitive_value().is_primitive()
             })
             .count();
 
@@ -173,8 +172,7 @@ mod tests {
             .memoized_results
             .iter()
             .filter(|(position, &r)| {
-                r == GameResult::Lose
-                    && position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+                r == GameResult::Lose && position.primitive_value().is_primitive()
             })
             .count();
 
@@ -182,17 +180,14 @@ mod tests {
             .memoized_results
             .iter()
             .filter(|(position, &r)| {
-                r == GameResult::Tie
-                    && position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
+                r == GameResult::Tie && position.primitive_value().is_primitive()
             })
             .count();
 
         let prim_total = solver
             .memoized_results
             .iter()
-            .filter(|(position, _)| {
-                position.primitive_value() != TicTacToePrimitiveValue::NotPrimitive
-            })
+            .filter(|(position, _)| position.primitive_value().is_primitive())
             .count();
 
         assert_eq!(2836, wins);

@@ -13,6 +13,7 @@ pub trait Move {}
 
 pub trait PrimitiveValue {
     fn to_game_result(&self) -> Option<GameResult>;
+    fn is_primitive(&self) -> bool;
 }
 
 pub trait Position: Eq + Hash {
