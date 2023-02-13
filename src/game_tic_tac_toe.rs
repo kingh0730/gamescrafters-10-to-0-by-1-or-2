@@ -186,6 +186,16 @@ mod tests {
             .filter(|(p, _)| p.primitive_value() != TicTacToePrimitiveValue::NotPrimitive)
             .count();
 
+        assert_eq!(2836, wins);
+        assert_eq!(1574, loses);
+        assert_eq!(1068, ties);
+        assert_eq!(5478, total);
+
+        assert_eq!(0, prim_wins);
+        assert_eq!(942, prim_loses);
+        assert_eq!(16, prim_ties);
+        assert_eq!(958, prim_total);
+
         println!("wins: {}", wins);
         println!("loses: {}", loses);
         println!("ties: {}", ties);
