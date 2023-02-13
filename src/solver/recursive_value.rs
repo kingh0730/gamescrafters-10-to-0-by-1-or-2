@@ -1,7 +1,5 @@
 pub trait RecursiveValue: Clone {
-    fn recursion_step(children: &[Self]) -> Self
-    where
-        Self: Sized;
+    fn recursion_step(children: &[Self]) -> Self;
 }
 
 pub trait ToRecursiveValue<RV>
