@@ -26,15 +26,17 @@ pub trait Position: Eq + Hash {
 }
 
 #[derive(Debug)]
-pub struct Solver<P: Position> {
-    memoized_results: HashMap<P, GameResult>,
+pub struct Solver<P: Position, V> {
+    memoized_map: HashMap<P, V>,
 }
 
-impl<P: Position> Solver<P> {
-    pub fn new(memoized_results: HashMap<P, GameResult>) -> Self {
-        Self { memoized_results }
+impl<P: Position, V> Solver<P, V> {
+    pub fn new(memoized_map: HashMap<P, V>) -> Self {
+        Self { memoized_map }
     }
+}
 
+impl<P: Position> Solver<P, GameResult> {
     fn children(&self, position: &P) -> Vec<P> {
         position
             .generate_moves()
@@ -66,13 +68,13 @@ impl<P: Position> Solver<P> {
     }
 
     pub fn solve(&mut self, position: P) -> GameResult {
-        if let Some(&result) = self.memoized_results.get(&position) {
+        if let Some(&result) = self.memoized_map.get(&position) {
             return result;
         }
 
         let result = self.solve_not_memoized(&position);
 
-        self.memoized_results.insert(position, result);
+        self.memoized_map.insert(position, result);
 
         result
     }
@@ -107,27 +109,27 @@ mod tests {
         });
 
         let wins = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(_, &r)| r == GameResult::Win)
             .count();
 
         let loses = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(_, &r)| r == GameResult::Lose)
             .count();
 
         let ties = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(_, &r)| r == GameResult::Tie)
             .count();
 
-        let total = solver.memoized_results.iter().count();
+        let total = solver.memoized_map.iter().count();
 
         let prim_wins = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(position, &r)| {
                 r == GameResult::Win && position.primitive_value().is_primitive()
@@ -135,7 +137,7 @@ mod tests {
             .count();
 
         let prim_loses = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(position, &r)| {
                 r == GameResult::Lose && position.primitive_value().is_primitive()
@@ -143,7 +145,7 @@ mod tests {
             .count();
 
         let prim_ties = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(position, &r)| {
                 r == GameResult::Tie && position.primitive_value().is_primitive()
@@ -151,7 +153,7 @@ mod tests {
             .count();
 
         let prim_total = solver
-            .memoized_results
+            .memoized_map
             .iter()
             .filter(|(position, _)| position.primitive_value().is_primitive())
             .count();
