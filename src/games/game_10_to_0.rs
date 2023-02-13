@@ -30,6 +30,13 @@ impl PrimitiveValue for TenToZeroPrimitiveValue {
             TenToZeroPrimitiveValue::NotPrimitive => None,
         }
     }
+
+    fn is_primitive(&self) -> bool {
+        match self {
+            TenToZeroPrimitiveValue::NotPrimitive => false,
+            _ => true,
+        }
+    }
 }
 
 impl Position for TenToZeroPosition {

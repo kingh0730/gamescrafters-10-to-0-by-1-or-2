@@ -31,6 +31,13 @@ impl PrimitiveValue for TwentyFiveToZeroPrimitiveValue {
             TwentyFiveToZeroPrimitiveValue::NotPrimitive => None,
         }
     }
+
+    fn is_primitive(&self) -> bool {
+        match self {
+            TwentyFiveToZeroPrimitiveValue::NotPrimitive => false,
+            _ => true,
+        }
+    }
 }
 
 impl Position for TwentyFiveToZeroPosition {

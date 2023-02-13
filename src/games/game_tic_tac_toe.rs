@@ -48,6 +48,13 @@ impl PrimitiveValue for TicTacToePrimitiveValue {
             TicTacToePrimitiveValue::NotPrimitive => None,
         }
     }
+
+    fn is_primitive(&self) -> bool {
+        match self {
+            TicTacToePrimitiveValue::NotPrimitive => false,
+            _ => true,
+        }
+    }
 }
 
 impl Position for TicTacToePosition {
