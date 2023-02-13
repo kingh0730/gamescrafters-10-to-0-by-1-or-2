@@ -18,6 +18,8 @@ use self::recursive_value::RecursiveValue;
 pub struct Solver<P, M, PV, RV>
 where
     P: Position<M, PV>,
+    M: PlayerMove,
+    PV: PrimitiveValue + ToRecursiveValue<RV>,
     RV: RecursiveValue,
 {
     memoized_map: HashMap<P, RV>,
@@ -29,7 +31,8 @@ where
 impl<P, M, PV, RV> Solver<P, M, PV, RV>
 where
     P: Position<M, PV>,
-    PV: ToRecursiveValue<RV>,
+    M: PlayerMove,
+    PV: PrimitiveValue + ToRecursiveValue<RV>,
     RV: RecursiveValue,
 {
     pub fn new(memoized_map: HashMap<P, RV>) -> Self {
