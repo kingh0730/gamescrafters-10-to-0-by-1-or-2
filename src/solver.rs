@@ -53,15 +53,7 @@ impl<P: Position> Solver<P, GameResult> {
             .map(|child| self.solve(child))
             .collect::<Vec<_>>();
 
-        if children_results.iter().any(|&r| r == GameResult::Lose) {
-            return GameResult::Win;
-        }
-
-        if children_results.iter().any(|&r| r == GameResult::Tie) {
-            return GameResult::Tie;
-        }
-
-        GameResult::Lose
+        GameResult::recursion_step(&children_results)
     }
 
     pub fn solve(&mut self, position: P) -> GameResult {
