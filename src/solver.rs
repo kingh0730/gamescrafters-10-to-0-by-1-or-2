@@ -26,16 +26,16 @@ pub trait Position: Eq + Hash {
 }
 
 #[derive(Debug)]
-pub struct Solver<T: Position> {
-    memoized_results: HashMap<T, GameResult>,
+pub struct Solver<P: Position> {
+    memoized_results: HashMap<P, GameResult>,
 }
 
-impl<T: Position> Solver<T> {
-    pub fn new(memoized_results: HashMap<T, GameResult>) -> Self {
+impl<P: Position> Solver<P> {
+    pub fn new(memoized_results: HashMap<P, GameResult>) -> Self {
         Self { memoized_results }
     }
 
-    fn children(&self, position: &T) -> Vec<T> {
+    fn children(&self, position: &P) -> Vec<P> {
         position
             .generate_moves()
             .into_iter()
@@ -43,7 +43,7 @@ impl<T: Position> Solver<T> {
             .collect()
     }
 
-    fn solve_not_memoized(&mut self, position: &T) -> GameResult {
+    fn solve_not_memoized(&mut self, position: &P) -> GameResult {
         if let Some(result) = position.primitive_value().to_game_result() {
             return result;
         }
@@ -65,7 +65,7 @@ impl<T: Position> Solver<T> {
         GameResult::Lose
     }
 
-    pub fn solve(&mut self, position: T) -> GameResult {
+    pub fn solve(&mut self, position: P) -> GameResult {
         if let Some(&result) = self.memoized_results.get(&position) {
             return result;
         }
