@@ -1,5 +1,9 @@
+mod recursive_value;
+
 use std::collections::HashMap;
 use std::hash::Hash;
+
+use self::recursive_value::RecursiveValue;
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub enum GameResult {
@@ -8,6 +12,8 @@ pub enum GameResult {
     Tie,
     Draw,
 }
+
+impl RecursiveValue for GameResult {}
 
 pub trait Move {}
 
@@ -26,11 +32,11 @@ pub trait Position: Eq + Hash {
 }
 
 #[derive(Debug)]
-pub struct Solver<P: Position, V> {
+pub struct Solver<P: Position, V: RecursiveValue> {
     memoized_map: HashMap<P, V>,
 }
 
-impl<P: Position, V> Solver<P, V> {
+impl<P: Position, V: RecursiveValue> Solver<P, V> {
     pub fn new(memoized_map: HashMap<P, V>) -> Self {
         Self { memoized_map }
     }
