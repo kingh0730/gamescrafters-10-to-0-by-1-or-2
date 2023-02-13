@@ -53,11 +53,11 @@ impl<T: Position> Solver<T> {
             .map(|child| self.solve(child))
             .collect::<Vec<_>>();
 
-        if children_results.iter().any(|r| *r == GameResult::Lose) {
+        if children_results.iter().any(|&r| r == GameResult::Lose) {
             return GameResult::Win;
         }
 
-        if children_results.iter().any(|r| *r == GameResult::Tie) {
+        if children_results.iter().any(|&r| r == GameResult::Tie) {
             return GameResult::Tie;
         }
 
@@ -65,8 +65,8 @@ impl<T: Position> Solver<T> {
     }
 
     pub fn solve(&mut self, position: T) -> GameResult {
-        if let Some(result) = self.memoized_results.get(&position) {
-            return *result;
+        if let Some(&result) = self.memoized_results.get(&position) {
+            return result;
         }
 
         let result = self.solve_not_memoized(&position);
