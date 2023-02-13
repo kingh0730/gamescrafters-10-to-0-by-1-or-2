@@ -9,7 +9,7 @@ use self::recursive_value::RecursiveValue;
 pub trait Move {}
 
 pub trait PrimitiveValue {
-    fn to_game_result(&self) -> Option<GameResult>;
+    fn to_recursive_value<V: RecursiveValue>(&self) -> Option<V>;
     fn is_primitive(&self) -> bool;
 }
 
@@ -39,11 +39,9 @@ impl<P: Position, V: RecursiveValue> Solver<P, V> {
             .map(|mov| position.do_move(mov))
             .collect()
     }
-}
 
-impl<P: Position> Solver<P, GameResult> {
-    fn solve_not_memoized(&mut self, position: &P) -> GameResult {
-        if let Some(result) = position.primitive_value().to_game_result() {
+    fn solve_not_memoized(&mut self, position: &P) -> V {
+        if let Some(result) = position.primitive_value().to_recursive_value() {
             return result;
         }
 
@@ -53,10 +51,10 @@ impl<P: Position> Solver<P, GameResult> {
             .map(|child| self.solve(child))
             .collect::<Vec<_>>();
 
-        GameResult::recursion_step(&children_results)
+        V::recursion_step(&children_results)
     }
 
-    pub fn solve(&mut self, position: P) -> GameResult {
+    pub fn solve(&mut self, position: P) -> V {
         if let Some(&result) = self.memoized_map.get(&position) {
             return result;
         }
@@ -78,7 +76,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let mut solver = Solver::new(HashMap::new());
+        let mut solver = Solver::<_, GameResult>::new(HashMap::new());
 
         let result = solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],
@@ -90,7 +88,7 @@ mod tests {
 
     #[test]
     fn tic_tac_toe_counts() {
-        let mut solver = Solver::new(HashMap::new());
+        let mut solver = Solver::<_, GameResult>::new(HashMap::new());
 
         solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],
