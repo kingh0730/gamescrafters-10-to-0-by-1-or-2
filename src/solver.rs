@@ -34,9 +34,7 @@ impl<P: Position, V> Solver<P, V> {
     pub fn new(memoized_map: HashMap<P, V>) -> Self {
         Self { memoized_map }
     }
-}
 
-impl<P: Position> Solver<P, GameResult> {
     fn children(&self, position: &P) -> Vec<P> {
         position
             .generate_moves()
@@ -44,7 +42,9 @@ impl<P: Position> Solver<P, GameResult> {
             .map(|mov| position.do_move(mov))
             .collect()
     }
+}
 
+impl<P: Position> Solver<P, GameResult> {
     fn solve_not_memoized(&mut self, position: &P) -> GameResult {
         if let Some(result) = position.primitive_value().to_game_result() {
             return result;
