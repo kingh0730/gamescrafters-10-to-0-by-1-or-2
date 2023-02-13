@@ -4,7 +4,6 @@ use std::collections::HashMap;
 use std::hash::Hash;
 
 pub use self::recursive_value::GameResult;
-
 use self::recursive_value::RecursiveValue;
 
 pub trait Move {}
