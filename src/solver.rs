@@ -27,8 +27,12 @@ pub struct Solver<P: Position, V: RecursiveValue> {
     memoized_map: HashMap<P, V>,
 }
 
-impl<P: Position, V: RecursiveValue> Solver<P, V> {
-    pub fn new(memoized_map: HashMap<P, V>) -> Self {
+impl<P, RV> Solver<P, RV>
+where
+    P: Position,
+    RV: RecursiveValue,
+{
+    pub fn new(memoized_map: HashMap<P, RV>) -> Self {
         Self { memoized_map }
     }
 
@@ -40,7 +44,7 @@ impl<P: Position, V: RecursiveValue> Solver<P, V> {
             .collect()
     }
 
-    fn solve_not_memoized(&mut self, position: &P) -> V {
+    fn solve_not_memoized(&mut self, position: &P) -> RV {
         if let Some(result) = position.primitive_value().to_recursive_value() {
             return result;
         }
@@ -51,10 +55,10 @@ impl<P: Position, V: RecursiveValue> Solver<P, V> {
             .map(|child| self.solve(child))
             .collect::<Vec<_>>();
 
-        V::recursion_step(&children_results)
+        RV::recursion_step(&children_results)
     }
 
-    pub fn solve(&mut self, position: P) -> V {
+    pub fn solve(&mut self, position: P) -> RV {
         if let Some(&result) = self.memoized_map.get(&position) {
             return result;
         }
