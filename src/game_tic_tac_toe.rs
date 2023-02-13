@@ -1,4 +1,4 @@
-use crate::{GameResult, Move, Position, PrimitiveValue};
+use crate::solver::{GameResult, Move, Position, PrimitiveValue};
 
 const LENGTH: usize = 3;
 
@@ -108,11 +108,8 @@ impl Position for TicTacToePosition {
 
 #[cfg(test)]
 mod tests {
-    use super::TicTacToePosition;
-    use crate::{
-        game_tic_tac_toe::{TicTacToePlayer, TicTacToePrimitiveValue},
-        GameResult, Position, Solver,
-    };
+    use super::{TicTacToePlayer, TicTacToePosition, TicTacToePrimitiveValue};
+    use crate::solver::{GameResult, Position, Solver};
     use std::collections::HashMap;
 
     #[test]

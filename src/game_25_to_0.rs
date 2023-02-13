@@ -1,4 +1,4 @@
-use crate::{GameResult, Move, Position, PrimitiveValue};
+use crate::solver::{GameResult, Move, Position, PrimitiveValue};
 
 #[derive(Debug)]
 enum TwentyFiveToZeroPrimitiveValue {
@@ -71,7 +71,7 @@ impl Position for TwentyFiveToZeroPosition {
 #[cfg(test)]
 mod tests {
     use super::TwentyFiveToZeroPosition;
-    use crate::Solver;
+    use crate::solver::Solver;
     use std::collections::HashMap;
 
     #[ignore]

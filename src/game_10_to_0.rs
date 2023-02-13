@@ -1,4 +1,4 @@
-use crate::{GameResult, Move, Position, PrimitiveValue};
+use crate::solver::{GameResult, Move, Position, PrimitiveValue};
 
 #[derive(Debug)]
 enum TenToZeroPrimitiveValue {
@@ -64,7 +64,7 @@ impl Position for TenToZeroPosition {
 #[cfg(test)]
 mod tests {
     use super::TenToZeroPosition;
-    use crate::Solver;
+    use crate::solver::Solver;
     use std::collections::HashMap;
 
     #[ignore]
