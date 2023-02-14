@@ -1,8 +1,10 @@
-use std::hash::Hash;
+mod position_grp_elem;
+
+pub use self::position_grp_elem::PositionGrpElem;
 
 use super::{PlayerMove, PrimitiveValue};
 
-pub trait Position<M, PV>: Eq + Hash
+pub trait Position<M, PV>: PositionGrpElem
 where
     M: PlayerMove,
     PV: PrimitiveValue,

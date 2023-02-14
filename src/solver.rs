@@ -8,6 +8,7 @@ use std::marker::PhantomData;
 
 pub use self::player_move::PlayerMove;
 pub use self::position::Position;
+pub use self::position::PositionGrpElem;
 pub use self::primitive_value::PrimitiveValue;
 pub use self::recursive_value::GameResult;
 pub use self::recursive_value::GameResultWithRemoteness;

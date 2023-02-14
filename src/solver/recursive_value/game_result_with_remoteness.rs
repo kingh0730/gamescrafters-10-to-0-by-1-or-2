@@ -121,7 +121,7 @@ mod tests_with_games {
 
     #[test]
     fn it_works() {
-        let mut solver = Solver::<_, _, _, GameResultWithRemoteness>::new(HashMap::new());
+        let mut solver = Solver::new(HashMap::<_, GameResultWithRemoteness>::new());
 
         let result = solver.solve(TenToZeroPosition {
             remaining_count: 10,

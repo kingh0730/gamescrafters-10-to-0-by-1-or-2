@@ -1,4 +1,6 @@
-use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue, ToRecursiveValue};
+use crate::solver::{
+    GameResult, PlayerMove, Position, PositionGrpElem, PrimitiveValue, ToRecursiveValue,
+};
 
 const LENGTH: usize = 3;
 
@@ -58,6 +60,8 @@ impl ToRecursiveValue<GameResult> for TicTacToePrimitiveValue {
         }
     }
 }
+
+impl PositionGrpElem for TicTacToePosition {}
 
 impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePosition {
     fn do_move(&self, mov: TicTacToeMove) -> TicTacToePosition {

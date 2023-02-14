@@ -1,4 +1,6 @@
-use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue, ToRecursiveValue};
+use crate::solver::{
+    GameResult, PlayerMove, Position, PositionGrpElem, PrimitiveValue, ToRecursiveValue,
+};
 
 #[derive(Debug)]
 enum TwentyFiveToZeroPrimitiveValue {
@@ -41,6 +43,8 @@ impl ToRecursiveValue<GameResult> for TwentyFiveToZeroPrimitiveValue {
         }
     }
 }
+
+impl PositionGrpElem for TwentyFiveToZeroPosition {}
 
 impl Position<TwentyFiveToZeroMove, TwentyFiveToZeroPrimitiveValue> for TwentyFiveToZeroPosition {
     fn do_move(&self, mov: TwentyFiveToZeroMove) -> TwentyFiveToZeroPosition {
