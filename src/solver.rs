@@ -11,8 +11,8 @@ pub use self::position::Position;
 pub use self::position::PositionGrpElem;
 pub use self::primitive_value::PrimitiveValue;
 pub use self::recursive_value::GameResult;
-pub use self::recursive_value::GameResultWithRemoteness;
-pub use self::recursive_value::RemotenessU32;
+pub use self::recursive_value::GameResultWithRmt;
+pub use self::recursive_value::RmtU32;
 pub use self::recursive_value::ToRecursiveValue;
 
 use self::recursive_value::RecursiveValue;

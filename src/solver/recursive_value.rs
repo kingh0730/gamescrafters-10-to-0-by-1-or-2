@@ -1,9 +1,9 @@
 mod game_result;
-mod game_result_with_remoteness;
+mod game_result_with_rmt;
 
 pub use game_result::GameResult;
-pub use game_result_with_remoteness::GameResultWithRemoteness;
-pub use game_result_with_remoteness::RemotenessU32;
+pub use game_result_with_rmt::GameResultWithRmt;
+pub use game_result_with_rmt::RmtU32;
 
 pub trait RecursiveValue: Clone {
     fn recursion_step(children: &[Self]) -> Self;

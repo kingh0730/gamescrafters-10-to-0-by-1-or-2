@@ -1,18 +1,18 @@
 use super::{GameResult, RecursiveValue};
 
-trait Remoteness {
+trait Rmt {
     fn inf() -> Self;
     fn is_inf(&self) -> bool;
     fn increment(&self) -> Self;
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
-pub enum RemotenessU32 {
+pub enum RmtU32 {
     Val(u32),
     Inf,
 }
 
-impl Remoteness for RemotenessU32 {
+impl Rmt for RmtU32 {
     fn inf() -> Self {
         Self::Inf
     }
@@ -33,55 +33,55 @@ impl Remoteness for RemotenessU32 {
 }
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
-pub struct GameResultWithRemoteness {
+pub struct GameResultWithRmt {
     pub game_result: GameResult,
-    pub remoteness: RemotenessU32,
+    pub rmt: RmtU32,
 }
 
-impl RecursiveValue for GameResultWithRemoteness {
+impl RecursiveValue for GameResultWithRmt {
     fn recursion_step(children: &[Self]) -> Self {
         let children_game_results = children
             .iter()
-            .map(|GameResultWithRemoteness { game_result, .. }| *game_result)
+            .map(|GameResultWithRmt { game_result, .. }| *game_result)
             .collect::<Vec<_>>();
 
         let game_result = GameResult::recursion_step(&children_game_results);
 
-        let filter_remoteness = |keep_game_result| {
+        let filter_rmt = |keep_game_result| {
             children
                 .iter()
-                .filter(move |GameResultWithRemoteness { game_result, .. }| {
+                .filter(move |GameResultWithRmt { game_result, .. }| {
                     *game_result == keep_game_result
                 })
-                .map(|GameResultWithRemoteness { remoteness, .. }| *remoteness)
+                .map(|GameResultWithRmt { rmt, .. }| *rmt)
                 .into_iter()
         };
 
         match game_result {
-            GameResult::Win => GameResultWithRemoteness {
+            GameResult::Win => GameResultWithRmt {
                 game_result,
-                remoteness: filter_remoteness(GameResult::Lose)
+                rmt: filter_rmt(GameResult::Lose)
                     .min()
                     .expect("Non-primitive Win should have Lose child")
                     .increment(),
             },
-            GameResult::Tie => GameResultWithRemoteness {
+            GameResult::Tie => GameResultWithRmt {
                 game_result,
-                remoteness: filter_remoteness(GameResult::Tie)
+                rmt: filter_rmt(GameResult::Tie)
                     .min()
                     .expect("Non-primitive Tie should have Tie child")
                     .increment(),
             },
-            GameResult::Lose => GameResultWithRemoteness {
+            GameResult::Lose => GameResultWithRmt {
                 game_result,
-                remoteness: filter_remoteness(GameResult::Win)
+                rmt: filter_rmt(GameResult::Win)
                     .max()
                     .expect("Non-primitive Lose should have Win child")
                     .increment(),
             },
-            GameResult::Draw => GameResultWithRemoteness {
+            GameResult::Draw => GameResultWithRmt {
                 game_result,
-                remoteness: RemotenessU32::Inf,
+                rmt: RmtU32::Inf,
             },
         }
     }
@@ -89,17 +89,17 @@ impl RecursiveValue for GameResultWithRemoteness {
 
 #[cfg(test)]
 mod tests {
-    use super::RemotenessU32;
+    use super::RmtU32;
 
     #[test]
-    fn remoteness_u32_ord() {
-        let min = RemotenessU32::Val(u32::MIN);
-        let zero = RemotenessU32::Val(0);
-        let one = RemotenessU32::Val(1);
-        let two = RemotenessU32::Val(2);
-        let max_minus_one = RemotenessU32::Val(u32::MAX - 1);
-        let max = RemotenessU32::Val(u32::MAX);
-        let inf = RemotenessU32::Inf;
+    fn rmt_u32_ord() {
+        let min = RmtU32::Val(u32::MIN);
+        let zero = RmtU32::Val(0);
+        let one = RmtU32::Val(1);
+        let two = RmtU32::Val(2);
+        let max_minus_one = RmtU32::Val(u32::MAX - 1);
+        let max = RmtU32::Val(u32::MAX);
+        let inf = RmtU32::Inf;
 
         assert_eq!(min, zero);
         assert_eq!(zero < one, true);
@@ -115,13 +115,13 @@ mod tests {
 mod tests_with_games {
     use std::collections::HashMap;
 
-    use super::{GameResultWithRemoteness, RemotenessU32};
+    use super::{GameResultWithRmt, RmtU32};
     use crate::games::take_10_to_0::TenToZeroPosition;
     use crate::solver::{GameResult, Solver};
 
     #[test]
     fn it_works() {
-        let mut solver = Solver::new(HashMap::<_, GameResultWithRemoteness>::new());
+        let mut solver = Solver::new(HashMap::<_, GameResultWithRmt>::new());
 
         let result = solver.solve(TenToZeroPosition {
             remaining_count: 10,
@@ -129,9 +129,9 @@ mod tests_with_games {
 
         assert_eq!(
             result,
-            GameResultWithRemoteness {
+            GameResultWithRmt {
                 game_result: GameResult::Win,
-                remoteness: RemotenessU32::Val(7),
+                rmt: RmtU32::Val(7),
             }
         );
 

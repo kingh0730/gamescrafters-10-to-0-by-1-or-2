@@ -1,2 +1,2 @@
 mod game_result;
-mod game_result_with_remoteness;
+mod game_result_with_rmt;
