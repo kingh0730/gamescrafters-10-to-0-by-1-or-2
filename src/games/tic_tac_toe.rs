@@ -1,9 +1,10 @@
 mod position;
+mod recursive_value;
 
 pub use self::position::TicTacToePlayer;
 pub use self::position::TicTacToePosition;
 
-use crate::solver::{GameResult, PlayerMove, PrimitiveValue, ToRecursiveValue};
+use crate::solver::{PlayerMove, PrimitiveValue};
 
 const LENGTH: usize = 3;
 
@@ -28,17 +29,6 @@ impl PrimitiveValue for TicTacToePrimitiveValue {
         match self {
             TicTacToePrimitiveValue::NotPrimitive => false,
             _ => true,
-        }
-    }
-}
-
-impl ToRecursiveValue<GameResult> for TicTacToePrimitiveValue {
-    fn to_recursive_value(&self) -> Option<GameResult> {
-        match self {
-            TicTacToePrimitiveValue::_Win => Some(GameResult::Win),
-            TicTacToePrimitiveValue::Lose => Some(GameResult::Lose),
-            TicTacToePrimitiveValue::Tie => Some(GameResult::Tie),
-            TicTacToePrimitiveValue::NotPrimitive => None,
         }
     }
 }
