@@ -1,3 +1,5 @@
+mod position;
+
 use crate::solver::{
     GameResult, PlayerMove, Position, PositionGrpElem, PrimitiveValue, ToRecursiveValue,
 };
