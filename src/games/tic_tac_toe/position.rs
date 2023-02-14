@@ -99,7 +99,7 @@ impl TicTacToePosition {
 
         for i in 0..LENGTH {
             for j in 0..LENGTH {
-                board[i][j] = self.board[LENGTH - j][i];
+                board[i][j] = self.board[LENGTH - j - 1][i];
             }
         }
 
