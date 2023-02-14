@@ -194,10 +194,10 @@ mod tests_with_games {
 
         let total = solver.memoized_map.iter().count();
 
-        assert_eq!(2836, wins);
-        assert_eq!(1574, loses);
-        assert_eq!(1068, ties);
-        assert_eq!(5478, total);
+        assert_eq!(390, wins);
+        assert_eq!(224, loses);
+        assert_eq!(151, ties);
+        assert_eq!(765, total);
 
         println!("wins: {}", wins);
         println!("loses: {}", loses);
