@@ -3,6 +3,7 @@ use super::{GameResult, RecursiveValue};
 trait Remoteness {
     fn inf() -> Self;
     fn is_inf(&self) -> bool;
+    fn increment(&self) -> Self;
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
@@ -20,6 +21,13 @@ impl Remoteness for RemotenessU32 {
         match self {
             Self::Val(_) => false,
             Self::Inf => true,
+        }
+    }
+
+    fn increment(&self) -> Self {
+        match self {
+            Self::Val(v) => Self::Val(v + 1),
+            Self::Inf => Self::Inf,
         }
     }
 }
@@ -54,19 +62,22 @@ impl RecursiveValue for GameResultWithRemoteness {
                 game_result,
                 remoteness: filter_remoteness(GameResult::Lose)
                     .min()
-                    .expect("Non-primitive Win should have Lose child"),
+                    .expect("Non-primitive Win should have Lose child")
+                    .increment(),
             },
             GameResult::Tie => GameResultWithRemoteness {
                 game_result,
                 remoteness: filter_remoteness(GameResult::Tie)
                     .min()
-                    .expect("Non-primitive Tie should have Tie child"),
+                    .expect("Non-primitive Tie should have Tie child")
+                    .increment(),
             },
             GameResult::Lose => GameResultWithRemoteness {
                 game_result,
                 remoteness: filter_remoteness(GameResult::Win)
                     .max()
-                    .expect("Non-primitive Lose should have Win child"),
+                    .expect("Non-primitive Lose should have Win child")
+                    .increment(),
             },
             GameResult::Draw => GameResultWithRemoteness {
                 game_result,
