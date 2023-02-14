@@ -131,7 +131,7 @@ mod tests_with_games {
             result,
             GameResultWithRemoteness {
                 game_result: GameResult::Win,
-                remoteness: RemotenessU32::Val(10),
+                remoteness: RemotenessU32::Val(7),
             }
         );
     }
