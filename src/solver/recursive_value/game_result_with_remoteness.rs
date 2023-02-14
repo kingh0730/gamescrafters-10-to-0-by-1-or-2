@@ -99,3 +99,29 @@ mod tests {
         assert_eq!(zero < inf, true);
     }
 }
+
+#[cfg(test)]
+mod tests_with_games {
+    use std::collections::HashMap;
+
+    use super::{GameResultWithRemoteness, RemotenessU32};
+    use crate::games::take_10_to_0::TenToZeroPosition;
+    use crate::solver::{GameResult, Solver};
+
+    #[test]
+    fn it_works() {
+        let mut solver = Solver::<_, _, _, GameResultWithRemoteness>::new(HashMap::new());
+
+        let result = solver.solve(TenToZeroPosition {
+            remaining_count: 10,
+        });
+
+        assert_eq!(
+            result,
+            GameResultWithRemoteness {
+                game_result: GameResult::Tie,
+                remoteness: RemotenessU32::Val(0),
+            }
+        );
+    }
+}
