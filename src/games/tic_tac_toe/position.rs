@@ -4,7 +4,7 @@ use super::{TicTacToeMove, TicTacToePrimitiveValue, LENGTH};
 
 mod position_grp_elem;
 
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub enum TicTacToePlayer {
     X,
     O,
@@ -19,7 +19,7 @@ impl TicTacToePlayer {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, Hash)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub struct TicTacToePosition {
     pub board: [[Option<TicTacToePlayer>; LENGTH]; LENGTH],
     pub player: TicTacToePlayer,
@@ -77,5 +77,61 @@ impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePosition {
         }
 
         TicTacToePrimitiveValue::Tie
+    }
+}
+
+impl TicTacToePosition {
+    fn reflect_along_x(&self) -> Self {
+        let mut board = self.board.clone();
+
+        board.reverse();
+
+        TicTacToePosition {
+            board,
+            player: self.player,
+        }
+    }
+
+    fn rotate_90(&self) -> Self {
+        let mut board = [[None; LENGTH]; LENGTH];
+
+        for i in 0..LENGTH {
+            for j in 0..LENGTH {
+                board[i][j] = self.board[LENGTH - j][i];
+            }
+        }
+
+        TicTacToePosition {
+            board,
+            player: self.player,
+        }
+    }
+
+    fn r1(&self) -> Self {
+        self.rotate_90()
+    }
+
+    fn r2(&self) -> Self {
+        self.rotate_90().rotate_90()
+    }
+
+    fn r3(&self) -> Self {
+        self.rotate_90().rotate_90().rotate_90()
+    }
+
+    fn s(&self) -> Self {
+        self.reflect_along_x()
+    }
+
+    fn sr1(&self) -> Self {
+        self.r1().reflect_along_x()
+    }
+
+    fn sr2(&self) -> Self {
+        self.r2().reflect_along_x()
+    }
+
+    fn sr3(&self) -> Self {
+        self.r3().reflect_along_x()
     }
 }
