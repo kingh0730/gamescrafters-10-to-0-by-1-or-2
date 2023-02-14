@@ -1,9 +1,33 @@
 use super::{GameResult, RecursiveValue};
 
+trait Remoteness {
+    fn inf() -> Self;
+    fn is_inf(&self) -> bool;
+}
+
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
+enum RemotenessU32 {
+    Val(u32),
+    Inf,
+}
+
+impl Remoteness for RemotenessU32 {
+    fn inf() -> Self {
+        Self::Inf
+    }
+
+    fn is_inf(&self) -> bool {
+        match self {
+            Self::Val(_) => false,
+            Self::Inf => true,
+        }
+    }
+}
+
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct GameResultWithRemoteness {
     game_result: GameResult,
-    remoteness: u32,
+    remoteness: RemotenessU32,
 }
 
 impl RecursiveValue for GameResultWithRemoteness {
@@ -18,12 +42,9 @@ impl RecursiveValue for GameResultWithRemoteness {
         let filter_remoteness = |keep_game_result| {
             children
                 .iter()
-                .filter(
-                    |GameResultWithRemoteness {
-                         game_result,
-                         remoteness,
-                     }| *game_result == keep_game_result,
-                )
+                .filter(move |GameResultWithRemoteness { game_result, .. }| {
+                    *game_result == keep_game_result
+                })
                 .map(|GameResultWithRemoteness { remoteness, .. }| *remoteness)
                 .into_iter()
         };
@@ -49,8 +70,32 @@ impl RecursiveValue for GameResultWithRemoteness {
             },
             GameResult::Draw => GameResultWithRemoteness {
                 game_result,
-                remoteness: inf,
+                remoteness: RemotenessU32::Inf,
             },
         }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::RemotenessU32;
+
+    #[test]
+    fn remoteness_u32_ord() {
+        let min = RemotenessU32::Val(u32::MIN);
+        let zero = RemotenessU32::Val(0);
+        let one = RemotenessU32::Val(1);
+        let two = RemotenessU32::Val(2);
+        let max_minus_one = RemotenessU32::Val(u32::MAX - 1);
+        let max = RemotenessU32::Val(u32::MAX);
+        let inf = RemotenessU32::Inf;
+
+        assert_eq!(min, zero);
+        assert_eq!(zero < one, true);
+        assert_eq!(one < two, true);
+        assert_eq!(two < max_minus_one, true);
+        assert_eq!(max < max_minus_one, false);
+        assert_eq!(inf < max, false);
+        assert_eq!(zero < inf, true);
     }
 }
