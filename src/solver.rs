@@ -10,6 +10,7 @@ pub use self::player_move::PlayerMove;
 pub use self::position::Position;
 pub use self::primitive_value::PrimitiveValue;
 pub use self::recursive_value::GameResult;
+pub use self::recursive_value::GameResultWithRemoteness;
 pub use self::recursive_value::ToRecursiveValue;
 
 use self::recursive_value::RecursiveValue;
