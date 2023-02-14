@@ -3,12 +3,13 @@ use std::{
     hash::{Hash, Hasher},
 };
 
-use crate::solver::PositionGrpElem;
+use crate::games::tic_tac_toe::{TicTacToeMove, TicTacToePrimitiveValue};
+use crate::solver::{Position, PositionGrpElem};
 
 use super::TicTacToePosition;
 
 pub struct TicTacToePositionGrpElem {
-    position: TicTacToePosition,
+    pub position: TicTacToePosition,
 }
 
 impl PositionGrpElem for TicTacToePositionGrpElem {}
@@ -53,5 +54,21 @@ impl Hash for TicTacToePositionGrpElem {
             hashes.iter().min().expect("hashes should not be empty");
 
         min_position.hash(state);
+    }
+}
+
+impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePositionGrpElem {
+    fn do_move(&self, mov: TicTacToeMove) -> TicTacToePositionGrpElem {
+        TicTacToePositionGrpElem {
+            position: self.position.do_move(mov),
+        }
+    }
+
+    fn generate_moves(&self) -> Vec<TicTacToeMove> {
+        self.position.generate_moves()
+    }
+
+    fn primitive_value(&self) -> TicTacToePrimitiveValue {
+        self.position.primitive_value()
     }
 }
