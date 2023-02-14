@@ -119,8 +119,8 @@ mod tests_with_games {
         assert_eq!(
             result,
             GameResultWithRemoteness {
-                game_result: GameResult::Tie,
-                remoteness: RemotenessU32::Val(0),
+                game_result: GameResult::Win,
+                remoteness: RemotenessU32::Val(10),
             }
         );
     }
