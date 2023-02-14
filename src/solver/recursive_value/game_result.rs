@@ -27,7 +27,7 @@ impl RecursiveValue for GameResult {
 }
 
 #[cfg(test)]
-mod tests {
+mod tests_with_games {
     use std::collections::HashMap;
 
     use super::GameResult;
