@@ -1,4 +1,6 @@
-use crate::solver::{GameResult, PlayerMove, Position, PrimitiveValue, ToRecursiveValue};
+mod recursive_value;
+
+use crate::solver::{PlayerMove, Position, PrimitiveValue};
 
 #[derive(Debug)]
 enum TenToZeroPrimitiveValue {
@@ -26,17 +28,6 @@ impl PrimitiveValue for TenToZeroPrimitiveValue {
         match self {
             TenToZeroPrimitiveValue::NotPrimitive => false,
             _ => true,
-        }
-    }
-}
-
-impl ToRecursiveValue<GameResult> for TenToZeroPrimitiveValue {
-    fn to_recursive_value(&self) -> Option<GameResult> {
-        match self {
-            TenToZeroPrimitiveValue::_Win => Some(GameResult::Win),
-            TenToZeroPrimitiveValue::Lose => Some(GameResult::Lose),
-            TenToZeroPrimitiveValue::_Tie => Some(GameResult::Tie),
-            TenToZeroPrimitiveValue::NotPrimitive => None,
         }
     }
 }
