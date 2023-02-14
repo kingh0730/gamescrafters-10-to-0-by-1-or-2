@@ -6,7 +6,7 @@ trait Remoteness {
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Clone, Copy)]
-enum RemotenessU32 {
+pub enum RemotenessU32 {
     Val(u32),
     Inf,
 }
@@ -26,8 +26,8 @@ impl Remoteness for RemotenessU32 {
 
 #[derive(Debug, PartialEq, Eq, Clone, Copy)]
 pub struct GameResultWithRemoteness {
-    game_result: GameResult,
-    remoteness: RemotenessU32,
+    pub game_result: GameResult,
+    pub remoteness: RemotenessU32,
 }
 
 impl RecursiveValue for GameResultWithRemoteness {
