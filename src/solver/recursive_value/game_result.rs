@@ -38,7 +38,7 @@ mod tests_with_games {
     fn it_works() {
         let mut solver = Solver::new(HashMap::new());
 
-        let result = solver.solve(TicTacToePosition {
+        let result: GameResult = solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],
             player: TicTacToePlayer::X,
         });
@@ -48,7 +48,7 @@ mod tests_with_games {
 
     #[test]
     fn tic_tac_toe_counts() {
-        let mut solver = Solver::new(HashMap::new());
+        let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
         solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],

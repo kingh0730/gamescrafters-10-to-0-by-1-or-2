@@ -44,7 +44,7 @@ mod tests {
     fn it_works() {
         let mut solver = Solver::new(HashMap::new());
 
-        let result = solver.solve(TicTacToePosition {
+        let result: GameResult = solver.solve(TicTacToePosition {
             board: [[None, None, None], [None, None, None], [None, None, None]],
             player: TicTacToePlayer::X,
         });
