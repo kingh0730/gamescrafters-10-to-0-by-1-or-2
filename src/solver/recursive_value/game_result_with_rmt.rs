@@ -162,4 +162,46 @@ mod tests_with_games {
 
         println!("{:#?}", result);
     }
+
+    #[test]
+    fn tic_tac_toe_counts() {
+        let mut solver = Solver::<_, _, _, GameResultWithRmt>::new(HashMap::new());
+
+        solver.solve(TicTacToePositionGrpElem {
+            position: TicTacToePosition {
+                board: [[None, None, None], [None, None, None], [None, None, None]],
+                player: TicTacToePlayer::X,
+            },
+        });
+
+        let wins = solver
+            .memoized_map
+            .iter()
+            .filter(|(_, &r)| r.game_result == GameResult::Win)
+            .count();
+
+        let loses = solver
+            .memoized_map
+            .iter()
+            .filter(|(_, &r)| r.game_result == GameResult::Lose)
+            .count();
+
+        let ties = solver
+            .memoized_map
+            .iter()
+            .filter(|(_, &r)| r.game_result == GameResult::Tie)
+            .count();
+
+        let total = solver.memoized_map.iter().count();
+
+        assert_eq!(2836, wins);
+        assert_eq!(1574, loses);
+        assert_eq!(1068, ties);
+        assert_eq!(5478, total);
+
+        println!("wins: {}", wins);
+        println!("loses: {}", loses);
+        println!("ties: {}", ties);
+        println!("total: {}", total);
+    }
 }
