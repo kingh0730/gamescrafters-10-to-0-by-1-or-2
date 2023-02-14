@@ -19,7 +19,7 @@ impl TicTacToePlayer {
     }
 }
 
-#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone)]
 pub struct TicTacToePosition {
     pub board: [[Option<TicTacToePlayer>; LENGTH]; LENGTH],
     pub player: TicTacToePlayer,

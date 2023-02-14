@@ -34,7 +34,7 @@ struct HashAndPosition(u64, TicTacToePosition);
 impl Hash for TicTacToePositionGrpElem {
     fn hash<H: Hasher>(&self, state: &mut H) {
         let hashes = [
-            self.position,
+            self.position.clone(),
             self.position.r1(),
             self.position.r2(),
             self.position.r3(),
