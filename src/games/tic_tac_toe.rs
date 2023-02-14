@@ -1,25 +1,11 @@
 mod position;
 
+pub use self::position::TicTacToePlayer;
 pub use self::position::TicTacToePosition;
 
 use crate::solver::{GameResult, PlayerMove, PrimitiveValue, ToRecursiveValue};
 
 const LENGTH: usize = 3;
-
-#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
-pub enum TicTacToePlayer {
-    X,
-    O,
-}
-
-impl TicTacToePlayer {
-    fn next_player(&self) -> TicTacToePlayer {
-        match self {
-            TicTacToePlayer::X => TicTacToePlayer::O,
-            TicTacToePlayer::O => TicTacToePlayer::X,
-        }
-    }
-}
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum TicTacToePrimitiveValue {

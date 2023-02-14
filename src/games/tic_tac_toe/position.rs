@@ -1,8 +1,23 @@
 use crate::solver::{Position, PositionGrpElem};
 
-use super::{TicTacToeMove, TicTacToePlayer, TicTacToePrimitiveValue, LENGTH};
+use super::{TicTacToeMove, TicTacToePrimitiveValue, LENGTH};
 
 mod position_grp_elem;
+
+#[derive(Debug, PartialEq, Eq, Hash, Clone, Copy)]
+pub enum TicTacToePlayer {
+    X,
+    O,
+}
+
+impl TicTacToePlayer {
+    fn next_player(&self) -> TicTacToePlayer {
+        match self {
+            TicTacToePlayer::X => TicTacToePlayer::O,
+            TicTacToePlayer::O => TicTacToePlayer::X,
+        }
+    }
+}
 
 #[derive(Debug, PartialEq, Eq, Hash)]
 pub struct TicTacToePosition {
