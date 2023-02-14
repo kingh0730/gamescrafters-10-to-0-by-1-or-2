@@ -174,6 +174,31 @@ mod tests_with_games {
             },
         });
 
+        for rmt in 0..=10 {
+            let wins = solver
+                .memoized_map
+                .iter()
+                .filter(|(_, &r)| r.game_result == GameResult::Win && (r.rmt == RmtU32::Val(rmt)))
+                .count();
+
+            let loses = solver
+                .memoized_map
+                .iter()
+                .filter(|(_, &r)| r.game_result == GameResult::Lose && (r.rmt == RmtU32::Val(rmt)))
+                .count();
+
+            let ties = solver
+                .memoized_map
+                .iter()
+                .filter(|(_, &r)| r.game_result == GameResult::Tie && (r.rmt == RmtU32::Val(rmt)))
+                .count();
+
+            println!("Remoteness: {}", rmt);
+            println!("wins: {}", wins);
+            println!("loses: {}", loses);
+            println!("ties: {}", ties);
+        }
+
         let wins = solver
             .memoized_map
             .iter()
@@ -199,9 +224,9 @@ mod tests_with_games {
         assert_eq!(151, ties);
         assert_eq!(765, total);
 
+        println!("Total: {}", total);
         println!("wins: {}", wins);
         println!("loses: {}", loses);
         println!("ties: {}", ties);
-        println!("total: {}", total);
     }
 }
