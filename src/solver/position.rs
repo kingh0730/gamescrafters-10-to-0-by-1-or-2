@@ -1,6 +1,6 @@
 mod position_grp_elem;
 
-pub use self::position_grp_elem::PositionGrpElem;
+pub use self::position_grp_elem::PositionKey;
 
 use super::{PlayerMove, PrimitiveValue};
 

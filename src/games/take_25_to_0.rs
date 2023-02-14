@@ -1,5 +1,5 @@
 use crate::solver::{
-    GameResult, PlayerMove, Position, PositionGrpElem, PrimitiveValue, ToRecursiveValue,
+    GameResult, PlayerMove, Position, PositionKey, PrimitiveValue, ToRecursiveValue,
 };
 
 #[derive(Debug)]
@@ -44,7 +44,7 @@ impl ToRecursiveValue<GameResult> for TwentyFiveToZeroPrimitiveValue {
     }
 }
 
-impl PositionGrpElem for TwentyFiveToZeroPosition {}
+impl PositionKey for TwentyFiveToZeroPosition {}
 
 impl Position<TwentyFiveToZeroMove, TwentyFiveToZeroPrimitiveValue> for TwentyFiveToZeroPosition {
     fn do_move(&self, mov: TwentyFiveToZeroMove) -> TwentyFiveToZeroPosition {

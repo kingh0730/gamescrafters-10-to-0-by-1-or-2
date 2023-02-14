@@ -1,3 +1,3 @@
 use std::hash::Hash;
 
-pub trait PositionGrpElem: Eq + Hash {}
+pub trait PositionKey: Eq + Hash {}

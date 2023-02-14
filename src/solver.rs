@@ -8,7 +8,7 @@ use std::marker::PhantomData;
 
 pub use self::player_move::PlayerMove;
 pub use self::position::Position;
-pub use self::position::PositionGrpElem;
+pub use self::position::PositionKey;
 pub use self::primitive_value::PrimitiveValue;
 pub use self::recursive_value::GameResult;
 pub use self::recursive_value::GameResultWithRmt;
@@ -20,7 +20,7 @@ use self::recursive_value::RecursiveValue;
 #[derive(Debug)]
 pub struct Solver<P, M, PV, RV>
 where
-    P: Position<M, PV> + PositionGrpElem,
+    P: Position<M, PV> + PositionKey,
     M: PlayerMove,
     PV: PrimitiveValue + ToRecursiveValue<RV>,
     RV: RecursiveValue,
@@ -33,7 +33,7 @@ where
 
 impl<P, M, PV, RV> Solver<P, M, PV, RV>
 where
-    P: Position<M, PV> + PositionGrpElem,
+    P: Position<M, PV> + PositionKey,
     M: PlayerMove,
     PV: PrimitiveValue + ToRecursiveValue<RV>,
     RV: RecursiveValue,

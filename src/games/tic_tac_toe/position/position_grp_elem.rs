@@ -4,17 +4,17 @@ use std::{
 };
 
 use crate::games::tic_tac_toe::{TicTacToeMove, TicTacToePrimitiveValue};
-use crate::solver::{Position, PositionGrpElem};
+use crate::solver::{Position, PositionKey};
 
 use super::TicTacToePosition;
 
-pub struct TicTacToePositionGrpElem {
+pub struct TicTacToePositionD4Eq {
     pub position: TicTacToePosition,
 }
 
-impl PositionGrpElem for TicTacToePositionGrpElem {}
+impl PositionKey for TicTacToePositionD4Eq {}
 
-impl PartialEq for TicTacToePositionGrpElem {
+impl PartialEq for TicTacToePositionD4Eq {
     fn eq(&self, other: &Self) -> bool {
         (self.position == other.position)
             || (self.position.r1() == other.position)
@@ -27,12 +27,12 @@ impl PartialEq for TicTacToePositionGrpElem {
     }
 }
 
-impl Eq for TicTacToePositionGrpElem {}
+impl Eq for TicTacToePositionD4Eq {}
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
 struct HashAndPosition(u64, TicTacToePosition);
 
-impl Hash for TicTacToePositionGrpElem {
+impl Hash for TicTacToePositionD4Eq {
     fn hash<H: Hasher>(&self, state: &mut H) {
         let hashes = [
             self.position.clone(),
@@ -57,9 +57,9 @@ impl Hash for TicTacToePositionGrpElem {
     }
 }
 
-impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePositionGrpElem {
-    fn do_move(&self, mov: TicTacToeMove) -> TicTacToePositionGrpElem {
-        TicTacToePositionGrpElem {
+impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePositionD4Eq {
+    fn do_move(&self, mov: TicTacToeMove) -> TicTacToePositionD4Eq {
+        TicTacToePositionD4Eq {
             position: self.position.do_move(mov),
         }
     }

@@ -1,6 +1,6 @@
 mod recursive_value;
 
-use crate::solver::{PlayerMove, Position, PositionGrpElem, PrimitiveValue};
+use crate::solver::{PlayerMove, Position, PositionKey, PrimitiveValue};
 
 #[derive(Debug)]
 pub enum TenToZeroPrimitiveValue {
@@ -32,7 +32,7 @@ impl PrimitiveValue for TenToZeroPrimitiveValue {
     }
 }
 
-impl PositionGrpElem for TenToZeroPosition {}
+impl PositionKey for TenToZeroPosition {}
 
 impl Position<TenToZeroMove, TenToZeroPrimitiveValue> for TenToZeroPosition {
     fn do_move(&self, mov: TenToZeroMove) -> TenToZeroPosition {

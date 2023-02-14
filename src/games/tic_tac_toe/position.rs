@@ -1,10 +1,10 @@
-use crate::solver::{Position, PositionGrpElem};
+use crate::solver::{Position, PositionKey};
 
 use super::{TicTacToeMove, TicTacToePrimitiveValue, LENGTH};
 
 mod position_grp_elem;
 
-pub use position_grp_elem::TicTacToePositionGrpElem;
+pub use position_grp_elem::TicTacToePositionD4Eq;
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub enum TicTacToePlayer {
@@ -27,7 +27,7 @@ pub struct TicTacToePosition {
     pub player: TicTacToePlayer,
 }
 
-impl PositionGrpElem for TicTacToePosition {}
+impl PositionKey for TicTacToePosition {}
 
 impl Position<TicTacToeMove, TicTacToePrimitiveValue> for TicTacToePosition {
     fn do_move(&self, mov: TicTacToeMove) -> TicTacToePosition {
