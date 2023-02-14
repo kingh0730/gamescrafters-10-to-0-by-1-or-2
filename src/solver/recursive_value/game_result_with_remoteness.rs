@@ -134,5 +134,11 @@ mod tests_with_games {
                 remoteness: RemotenessU32::Val(7),
             }
         );
+
+        for i in (0..=10).rev() {
+            let result = solver.solve(TenToZeroPosition { remaining_count: i });
+
+            println!("{i}: {:?}", result);
+        }
     }
 }
