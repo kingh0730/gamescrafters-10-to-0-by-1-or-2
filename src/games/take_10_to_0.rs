@@ -15,7 +15,7 @@ enum TenToZeroMove {
 }
 
 #[derive(Debug, PartialEq, Eq, Hash)]
-struct TenToZeroPosition {
+pub struct TenToZeroPosition {
     remaining_count: u32,
 }
 
