@@ -152,6 +152,14 @@ mod tests_with_games {
             player: TicTacToePlayer::X,
         });
 
+        assert_eq!(
+            result,
+            GameResultWithRmt {
+                game_result: GameResult::Tie,
+                rmt: RmtU32::Val(9),
+            }
+        );
+
         println!("{:#?}", result);
     }
 }
