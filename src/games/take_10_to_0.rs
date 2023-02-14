@@ -3,7 +3,7 @@ mod recursive_value;
 use crate::solver::{PlayerMove, Position, PrimitiveValue};
 
 #[derive(Debug)]
-enum TenToZeroPrimitiveValue {
+pub enum TenToZeroPrimitiveValue {
     _Win,
     Lose,
     _Tie,
@@ -11,14 +11,14 @@ enum TenToZeroPrimitiveValue {
 }
 
 #[derive(Debug)]
-enum TenToZeroMove {
+pub enum TenToZeroMove {
     Take1,
     Take2,
 }
 
 #[derive(Debug, PartialEq, Eq, Hash)]
 pub struct TenToZeroPosition {
-    remaining_count: u32,
+    pub remaining_count: u32,
 }
 
 impl PlayerMove for TenToZeroMove {}
@@ -67,7 +67,7 @@ mod tests {
 
     #[test]
     fn it_works() {
-        let mut solver = Solver::new(HashMap::new());
+        let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
         for i in (0..=10).rev() {
             let result = solver.solve(TenToZeroPosition { remaining_count: i });
@@ -85,7 +85,7 @@ mod tests {
 
     #[test]
     fn test_memoization() {
-        let mut solver = Solver::new(HashMap::new());
+        let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
         for i in (0..=100).rev() {
             let result = solver.solve(TenToZeroPosition { remaining_count: i });
