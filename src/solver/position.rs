@@ -4,7 +4,7 @@ pub use self::position_grp_elem::PositionGrpElem;
 
 use super::{PlayerMove, PrimitiveValue};
 
-pub trait Position<M, PV>: PositionGrpElem
+pub trait Position<M, PV>
 where
     M: PlayerMove,
     PV: PrimitiveValue,

@@ -4,6 +4,8 @@ use super::{TicTacToeMove, TicTacToePrimitiveValue, LENGTH};
 
 mod position_grp_elem;
 
+pub use position_grp_elem::TicTacToePositionGrpElem;
+
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub enum TicTacToePlayer {
     X,

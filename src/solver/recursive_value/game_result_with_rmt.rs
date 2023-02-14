@@ -117,7 +117,7 @@ mod tests_with_games {
 
     use super::{GameResultWithRmt, RmtU32};
     use crate::games::take_10_to_0::TenToZeroPosition;
-    use crate::games::tic_tac_toe::{TicTacToePlayer, TicTacToePosition};
+    use crate::games::tic_tac_toe::{TicTacToePlayer, TicTacToePosition, TicTacToePositionGrpElem};
     use crate::solver::{GameResult, Solver};
 
     #[test]
@@ -144,7 +144,7 @@ mod tests_with_games {
     }
 
     #[test]
-    fn tic_tac_toe_counts() {
+    fn tic_tac_toe() {
         let mut solver = Solver::<_, _, _, GameResultWithRmt>::new(HashMap::new());
 
         let result = solver.solve(TicTacToePosition {

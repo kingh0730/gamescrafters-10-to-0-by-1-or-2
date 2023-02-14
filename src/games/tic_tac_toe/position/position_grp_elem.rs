@@ -7,7 +7,7 @@ use crate::solver::PositionGrpElem;
 
 use super::TicTacToePosition;
 
-struct TicTacToePositionGrpElem {
+pub struct TicTacToePositionGrpElem {
     position: TicTacToePosition,
 }
 

@@ -20,7 +20,7 @@ use self::recursive_value::RecursiveValue;
 #[derive(Debug)]
 pub struct Solver<P, M, PV, RV>
 where
-    P: Position<M, PV>,
+    P: Position<M, PV> + PositionGrpElem,
     M: PlayerMove,
     PV: PrimitiveValue + ToRecursiveValue<RV>,
     RV: RecursiveValue,
@@ -33,7 +33,7 @@ where
 
 impl<P, M, PV, RV> Solver<P, M, PV, RV>
 where
-    P: Position<M, PV>,
+    P: Position<M, PV> + PositionGrpElem,
     M: PlayerMove,
     PV: PrimitiveValue + ToRecursiveValue<RV>,
     RV: RecursiveValue,
