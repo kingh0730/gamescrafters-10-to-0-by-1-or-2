@@ -18,20 +18,20 @@ impl TicTacToeNonSqPlayer {
 }
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone)]
-pub struct TicTacToePosition {
+pub struct TicTacToeNonSqPosition {
     pub board: [[Option<TicTacToeNonSqPlayer>; WIDTH]; HEIGHT],
     pub player: TicTacToeNonSqPlayer,
 }
 
-impl PositionKey for TicTacToePosition {}
+impl PositionKey for TicTacToeNonSqPosition {}
 
-impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToePosition {
-    fn do_move(&self, mov: TicTacToeNonSqMove) -> TicTacToePosition {
+impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToeNonSqPosition {
+    fn do_move(&self, mov: TicTacToeNonSqMove) -> TicTacToeNonSqPosition {
         let mut board = self.board.clone();
 
         board[mov.x][mov.y] = Some(self.player);
 
-        TicTacToePosition {
+        TicTacToeNonSqPosition {
             board,
             player: self.player.next_player(),
         }

@@ -1,6 +1,9 @@
 mod position;
 mod recursive_value;
 
+pub use self::position::TicTacToeNonSqPlayer;
+pub use self::position::TicTacToeNonSqPosition;
+
 use crate::solver::{PlayerMove, PrimitiveValue};
 
 const WIDTH: usize = 4;
