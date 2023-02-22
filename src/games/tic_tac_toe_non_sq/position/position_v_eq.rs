@@ -4,8 +4,8 @@ use std::{
 };
 
 use crate::{
-    games::tic_tac_toe_non_sq::{TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue, HEIGHT, WIDTH},
-    solver::PositionKey,
+    games::tic_tac_toe_non_sq::{TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue},
+    solver::{Position, PositionKey},
 };
 
 use super::TicTacToeNonSqPosition;
@@ -48,6 +48,22 @@ impl Hash for TicTacToeNonSqPositionVEq {
             hashes.iter().min().expect("hashes should not be empty");
 
         min_position.hash(state);
+    }
+}
+
+impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToeNonSqPositionVEq {
+    fn do_move(&self, mov: TicTacToeNonSqMove) -> TicTacToeNonSqPositionVEq {
+        TicTacToeNonSqPositionVEq {
+            position: self.position.do_move(mov),
+        }
+    }
+
+    fn generate_moves(&self) -> Vec<TicTacToeNonSqMove> {
+        self.position.generate_moves()
+    }
+
+    fn primitive_value(&self) -> TicTacToeNonSqPrimitiveValue {
+        self.position.primitive_value()
     }
 }
 
