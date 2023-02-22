@@ -68,6 +68,10 @@ impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToeNon
             return TicTacToeNonSqPrimitiveValue::Lose;
         }
 
+        if (0..WIDTH).any(|i| (0..HEIGHT).any(|j| self.board[j][i] == None)) {
+            return TicTacToeNonSqPrimitiveValue::NotPrimitive;
+        }
+
         TicTacToeNonSqPrimitiveValue::Tie
     }
 }
