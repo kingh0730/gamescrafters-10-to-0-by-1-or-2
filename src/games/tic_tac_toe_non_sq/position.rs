@@ -2,6 +2,10 @@ use crate::solver::{Position, PositionKey};
 
 use super::{TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue, HEIGHT, K_IN_A_ROW, WIDTH};
 
+mod position_v_eq;
+
+pub use position_v_eq::TicTacToeNonSqPositionVEq;
+
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub enum TicTacToeNonSqPlayer {
     X,
