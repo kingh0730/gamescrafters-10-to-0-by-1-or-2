@@ -118,6 +118,7 @@ mod tests_with_games {
     use super::{GameResultWithRmt, RmtU32};
     use crate::games::take_10_to_0::TenToZeroPosition;
     use crate::games::tic_tac_toe::{TicTacToePlayer, TicTacToePosition, TicTacToePositionD4Eq};
+    use crate::games::tic_tac_toe_non_sq::{TicTacToeNonSqPlayer, TicTacToeNonSqPosition};
     use crate::solver::{GameResult, Solver};
 
     #[test]
@@ -223,6 +224,75 @@ mod tests_with_games {
         assert_eq!(224, loses);
         assert_eq!(151, ties);
         assert_eq!(765, total);
+
+        println!("Total: {}", total);
+        println!("wins: {}", wins);
+        println!("loses: {}", loses);
+        println!("ties: {}", ties);
+    }
+
+    #[test]
+    fn tic_tac_toe_non_sq_counts() {
+        let mut solver = Solver::<_, _, _, GameResultWithRmt>::new(HashMap::new());
+
+        solver.solve(TicTacToeNonSqPosition {
+            board: [
+                [None, None, None, None],
+                [None, None, None, None],
+                [None, None, None, None],
+            ],
+            player: TicTacToeNonSqPlayer::X,
+        });
+
+        for rmt in 0..=10 {
+            let wins = solver
+                .memoized_map
+                .iter()
+                .filter(|(_, &r)| r.game_result == GameResult::Win && (r.rmt == RmtU32::Val(rmt)))
+                .count();
+
+            let loses = solver
+                .memoized_map
+                .iter()
+                .filter(|(_, &r)| r.game_result == GameResult::Lose && (r.rmt == RmtU32::Val(rmt)))
+                .count();
+
+            let ties = solver
+                .memoized_map
+                .iter()
+                .filter(|(_, &r)| r.game_result == GameResult::Tie && (r.rmt == RmtU32::Val(rmt)))
+                .count();
+
+            println!("Remoteness: {}", rmt);
+            println!("wins: {}", wins);
+            println!("loses: {}", loses);
+            println!("ties: {}", ties);
+        }
+
+        let wins = solver
+            .memoized_map
+            .iter()
+            .filter(|(_, &r)| r.game_result == GameResult::Win)
+            .count();
+
+        let loses = solver
+            .memoized_map
+            .iter()
+            .filter(|(_, &r)| r.game_result == GameResult::Lose)
+            .count();
+
+        let ties = solver
+            .memoized_map
+            .iter()
+            .filter(|(_, &r)| r.game_result == GameResult::Tie)
+            .count();
+
+        let total = solver.memoized_map.iter().count();
+
+        // assert_eq!(390, wins);
+        // assert_eq!(224, loses);
+        // assert_eq!(151, ties);
+        // assert_eq!(765, total);
 
         println!("Total: {}", total);
         println!("wins: {}", wins);
