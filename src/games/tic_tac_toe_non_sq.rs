@@ -1,4 +1,5 @@
 mod position;
+mod recursive_value;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
