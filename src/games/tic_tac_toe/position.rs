@@ -2,9 +2,9 @@ use crate::solver::{Position, PositionKey};
 
 use super::{TicTacToeMove, TicTacToePrimitiveValue, LENGTH};
 
-mod position_grp_elem;
+mod position_d4_eq;
 
-pub use position_grp_elem::TicTacToePositionD4Eq;
+pub use position_d4_eq::TicTacToePositionD4Eq;
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub enum TicTacToePlayer {
