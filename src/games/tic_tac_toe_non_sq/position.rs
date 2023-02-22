@@ -1,6 +1,6 @@
 use crate::solver::{Position, PositionKey};
 
-use super::{TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue, HEIGHT, WIDTH};
+use super::{TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue, HEIGHT, K_IN_A_ROW, WIDTH};
 
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
 pub enum TicTacToeNonSqPlayer {
@@ -52,6 +52,20 @@ impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToePos
     }
 
     fn primitive_value(&self) -> TicTacToeNonSqPrimitiveValue {
+        let opponent = self.player.next_player();
+
+        if (0..=(HEIGHT - K_IN_A_ROW)).any(|offset| {
+            (0..WIDTH).any(|i| (0..HEIGHT).all(|j| self.board[i][j + offset] == Some(opponent)))
+        }) {
+            return TicTacToeNonSqPrimitiveValue::Lose;
+        }
+
+        if (0..=(WIDTH - K_IN_A_ROW)).any(|offset| {
+            (0..HEIGHT).any(|j| (0..WIDTH).all(|i| self.board[i + offset][j] == Some(opponent)))
+        }) {
+            return TicTacToeNonSqPrimitiveValue::Lose;
+        }
+
         TicTacToeNonSqPrimitiveValue::Tie
     }
 }
