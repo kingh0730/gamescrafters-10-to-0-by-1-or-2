@@ -55,15 +55,30 @@ impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToeNon
         let opponent = self.player.next_player();
 
         if (0..=(HEIGHT as i32 - K_IN_A_ROW as i32)).any(|offset| {
-            (0..WIDTH)
-                .any(|i| (0..HEIGHT).all(|j| self.board[j + offset as usize][i] == Some(opponent)))
+            (0..WIDTH).any(|i| {
+                (0..K_IN_A_ROW).all(|j| self.board[j + offset as usize][i] == Some(opponent))
+            })
         }) {
             return TicTacToeNonSqPrimitiveValue::Lose;
         }
 
         if (0..=(WIDTH as i32 - K_IN_A_ROW as i32)).any(|offset| {
-            (0..HEIGHT)
-                .any(|j| (0..WIDTH).all(|i| self.board[j][i + offset as usize] == Some(opponent)))
+            (0..HEIGHT).any(|j| {
+                (0..K_IN_A_ROW).all(|i| self.board[j][i + offset as usize] == Some(opponent))
+            })
+        }) {
+            return TicTacToeNonSqPrimitiveValue::Lose;
+        }
+
+        if (0..=(HEIGHT as i32 - K_IN_A_ROW as i32)).any(|j_offset| {
+            (0..=(WIDTH as i32 - K_IN_A_ROW as i32)).any(|i_offset| {
+                (0..K_IN_A_ROW).all(|x| {
+                    self.board[x + j_offset as usize][x + i_offset as usize] == Some(opponent)
+                }) || (0..K_IN_A_ROW).all(|x| {
+                    self.board[x + j_offset as usize][K_IN_A_ROW - 1 - x + i_offset as usize]
+                        == Some(opponent)
+                })
+            })
         }) {
             return TicTacToeNonSqPrimitiveValue::Lose;
         }
