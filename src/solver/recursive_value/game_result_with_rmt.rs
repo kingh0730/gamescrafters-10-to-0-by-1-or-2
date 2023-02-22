@@ -118,7 +118,9 @@ mod tests_with_games {
     use super::{GameResultWithRmt, RmtU32};
     use crate::games::take_10_to_0::TenToZeroPosition;
     use crate::games::tic_tac_toe::{TicTacToePlayer, TicTacToePosition, TicTacToePositionD4Eq};
-    use crate::games::tic_tac_toe_non_sq::{TicTacToeNonSqPlayer, TicTacToeNonSqPosition};
+    use crate::games::tic_tac_toe_non_sq::{
+        TicTacToeNonSqPlayer, TicTacToeNonSqPosition, TicTacToeNonSqPositionVEq,
+    };
     use crate::solver::{GameResult, Solver};
 
     #[test]
@@ -235,13 +237,15 @@ mod tests_with_games {
     fn tic_tac_toe_non_sq_counts() {
         let mut solver = Solver::<_, _, _, GameResultWithRmt>::new(HashMap::new());
 
-        solver.solve(TicTacToeNonSqPosition {
-            board: [
-                [None, None, None, None],
-                [None, None, None, None],
-                [None, None, None, None],
-            ],
-            player: TicTacToeNonSqPlayer::X,
+        solver.solve(TicTacToeNonSqPositionVEq {
+            position: TicTacToeNonSqPosition {
+                board: [
+                    [None, None, None, None],
+                    [None, None, None, None],
+                    [None, None, None, None],
+                ],
+                player: TicTacToeNonSqPlayer::X,
+            },
         });
 
         for rmt in 0..=10 {

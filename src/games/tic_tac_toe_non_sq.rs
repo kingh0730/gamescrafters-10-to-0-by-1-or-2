@@ -3,6 +3,7 @@ mod recursive_value;
 
 pub use self::position::TicTacToeNonSqPlayer;
 pub use self::position::TicTacToeNonSqPosition;
+pub use self::position::TicTacToeNonSqPositionVEq;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
