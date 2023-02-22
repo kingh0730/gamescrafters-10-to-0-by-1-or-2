@@ -236,11 +236,7 @@ mod tests_with_games {
         let mut solver = Solver::<_, _, _, GameResultWithRmt>::new(HashMap::new());
 
         solver.solve(TicTacToeNonSqPosition {
-            board: [
-                [None, None, None, None],
-                [None, None, None, None],
-                [None, None, None, None],
-            ],
+            board: [[None, None, None]],
             player: TicTacToeNonSqPlayer::X,
         });
 

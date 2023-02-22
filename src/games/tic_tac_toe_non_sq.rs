@@ -6,8 +6,8 @@ pub use self::position::TicTacToeNonSqPosition;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
-const WIDTH: usize = 4;
-const HEIGHT: usize = 3;
+const WIDTH: usize = 3;
+const HEIGHT: usize = 1;
 const K_IN_A_ROW: usize = 3;
 
 #[derive(Debug, PartialEq, Eq)]

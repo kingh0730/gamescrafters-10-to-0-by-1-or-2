@@ -54,14 +54,16 @@ impl Position<TicTacToeNonSqMove, TicTacToeNonSqPrimitiveValue> for TicTacToeNon
     fn primitive_value(&self) -> TicTacToeNonSqPrimitiveValue {
         let opponent = self.player.next_player();
 
-        if (0..=(HEIGHT - K_IN_A_ROW)).any(|offset| {
-            (0..WIDTH).any(|i| (0..HEIGHT).all(|j| self.board[j + offset][i] == Some(opponent)))
+        if (0..=(HEIGHT as i32 - K_IN_A_ROW as i32)).any(|offset| {
+            (0..WIDTH)
+                .any(|i| (0..HEIGHT).all(|j| self.board[j + offset as usize][i] == Some(opponent)))
         }) {
             return TicTacToeNonSqPrimitiveValue::Lose;
         }
 
-        if (0..=(WIDTH - K_IN_A_ROW)).any(|offset| {
-            (0..HEIGHT).any(|j| (0..WIDTH).all(|i| self.board[j][i + offset] == Some(opponent)))
+        if (0..=(WIDTH as i32 - K_IN_A_ROW as i32)).any(|offset| {
+            (0..HEIGHT)
+                .any(|j| (0..WIDTH).all(|i| self.board[j][i + offset as usize] == Some(opponent)))
         }) {
             return TicTacToeNonSqPrimitiveValue::Lose;
         }
