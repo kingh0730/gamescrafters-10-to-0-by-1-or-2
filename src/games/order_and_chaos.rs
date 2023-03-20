@@ -25,8 +25,8 @@ impl PrimitiveValue for OrderAndChaosPrimitiveValue {
     }
 }
 
-#[derive(Debug)]
-enum OrderAndChaosPiece {
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Clone, Copy)]
+pub enum OrderAndChaosPiece {
     X,
     O,
 }
