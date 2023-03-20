@@ -6,9 +6,9 @@ pub use self::position::OrderAndChaosPosition;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
-const WIDTH: usize = 4;
-const HEIGHT: usize = 4;
-const K_IN_A_ROW: usize = 4;
+const WIDTH: usize = 3;
+const HEIGHT: usize = 3;
+const K_IN_A_ROW: usize = 3;
 
 // Check bounds
 const _: () = assert!(WIDTH <= 10);
