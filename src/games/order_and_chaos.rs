@@ -6,9 +6,9 @@ pub use self::position::OrderAndChaosPosition;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
-const WIDTH: usize = 2;
-const HEIGHT: usize = 2;
-const K_IN_A_ROW: usize = 2;
+const WIDTH: usize = 4;
+const HEIGHT: usize = 4;
+const K_IN_A_ROW: usize = 4;
 
 // Check bounds
 const _: () = assert!(WIDTH <= 10);
@@ -19,7 +19,7 @@ const _: () = assert!(K_IN_A_ROW <= 10 && K_IN_A_ROW >= 1);
 impl OrderAndChaosPosition {
     pub fn start() -> OrderAndChaosPosition {
         OrderAndChaosPosition {
-            board: [[None, None], [None, None]],
+            board: [[None; WIDTH]; HEIGHT],
             player: OrderAndChaosPlayer::Order,
         }
     }
