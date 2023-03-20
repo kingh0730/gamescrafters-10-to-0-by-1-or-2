@@ -15,6 +15,7 @@ const _: () = assert!(WIDTH <= 10);
 const _: () = assert!(HEIGHT <= 10);
 const _: () = assert!(K_IN_A_ROW <= 10 && K_IN_A_ROW >= 1);
 
+// Start position
 impl OrderAndChaosPosition {
     pub fn start() -> OrderAndChaosPosition {
         OrderAndChaosPosition {
