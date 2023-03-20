@@ -6,10 +6,23 @@ pub use self::position::OrderAndChaosPosition;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
-// TODO Check bounds
-const WIDTH: usize = 3;
-const HEIGHT: usize = 3;
-const K_IN_A_ROW: usize = 3;
+const WIDTH: usize = 2;
+const HEIGHT: usize = 2;
+const K_IN_A_ROW: usize = 2;
+
+// Check bounds
+const _: () = assert!(WIDTH <= 10);
+const _: () = assert!(HEIGHT <= 10);
+const _: () = assert!(K_IN_A_ROW <= 10 && K_IN_A_ROW >= 1);
+
+impl OrderAndChaosPosition {
+    pub fn start() -> OrderAndChaosPosition {
+        OrderAndChaosPosition {
+            board: [[None, None], [None, None]],
+            player: OrderAndChaosPlayer::Order,
+        }
+    }
+}
 
 #[derive(Debug, PartialEq, Eq)]
 pub enum OrderAndChaosPrimitiveValue {
@@ -47,17 +60,14 @@ impl PlayerMove for OrderAndChaosMove {}
 mod tests {
     use std::collections::HashMap;
 
-    use super::{OrderAndChaosPlayer, OrderAndChaosPosition};
+    use super::OrderAndChaosPosition;
     use crate::solver::{GameResult, Solver};
 
     #[test]
     fn test_order_and_chaos() {
         let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
-        let result = solver.solve(OrderAndChaosPosition {
-            board: [[None, None, None], [None, None, None], [None, None, None]],
-            player: OrderAndChaosPlayer::Order,
-        });
+        let result = solver.solve(OrderAndChaosPosition::start());
 
         println!("{:?}", result);
     }
