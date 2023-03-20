@@ -77,7 +77,7 @@ impl Position<OrderAndChaosMove, OrderAndChaosPrimitiveValue> for OrderAndChaosP
 }
 
 impl OrderAndChaosPosition {
-    fn reflect_along_x(&self) -> Self {
+    fn reflect_along_x_d4(&self) -> Self {
         let mut board = self.board.clone();
 
         board.reverse();
@@ -122,18 +122,18 @@ impl OrderAndChaosPosition {
     }
 
     fn s(&self) -> Self {
-        self.reflect_along_x()
+        self.reflect_along_x_d4()
     }
 
     fn sr1(&self) -> Self {
-        self.r1().reflect_along_x()
+        self.r1().reflect_along_x_d4()
     }
 
     fn sr2(&self) -> Self {
-        self.r2().reflect_along_x()
+        self.r2().reflect_along_x_d4()
     }
 
     fn sr3(&self) -> Self {
-        self.r3().reflect_along_x()
+        self.r3().reflect_along_x_d4()
     }
 }
