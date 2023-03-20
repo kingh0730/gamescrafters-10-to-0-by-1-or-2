@@ -3,6 +3,8 @@ mod recursive_value;
 
 pub use self::position::OrderAndChaosPlayer;
 pub use self::position::OrderAndChaosPosition;
+pub use self::position::OrderAndChaosPositionD4Eq;
+pub use self::position::OrderAndChaosPositionVEq;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 

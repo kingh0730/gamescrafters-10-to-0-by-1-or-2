@@ -2,6 +2,8 @@ use crate::solver::{Position, PositionKey};
 
 mod position_d4_eq;
 pub use position_d4_eq::OrderAndChaosPositionD4Eq;
+mod position_v_eq;
+pub use position_v_eq::OrderAndChaosPositionVEq;
 
 use super::{
     OrderAndChaosMove, OrderAndChaosPiece, OrderAndChaosPrimitiveValue, HEIGHT, K_IN_A_ROW, WIDTH,
