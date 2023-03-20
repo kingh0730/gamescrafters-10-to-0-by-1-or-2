@@ -1,5 +1,8 @@
 use crate::solver::{Position, PositionKey};
 
+mod position_d4_eq;
+pub use position_d4_eq::OrderAndChaosPositionD4Eq;
+
 use super::{
     OrderAndChaosMove, OrderAndChaosPiece, OrderAndChaosPrimitiveValue, HEIGHT, K_IN_A_ROW, WIDTH,
 };
