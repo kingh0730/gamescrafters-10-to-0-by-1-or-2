@@ -8,9 +8,9 @@ pub use self::position::OrderAndChaosPositionVEq;
 
 use crate::solver::{PlayerMove, PrimitiveValue};
 
-const WIDTH: usize = 3;
-const HEIGHT: usize = 3;
-const K_IN_A_ROW: usize = 3;
+const WIDTH: usize = 4;
+const HEIGHT: usize = 4;
+const K_IN_A_ROW: usize = 4;
 
 // Check bounds
 const _: () = assert!(WIDTH <= 10);
@@ -64,13 +64,18 @@ mod tests {
     use std::collections::HashMap;
 
     use super::OrderAndChaosPosition;
-    use crate::solver::{GameResult, Solver};
+    use crate::{
+        games::order_and_chaos::OrderAndChaosPositionD4Eq,
+        solver::{GameResult, Solver},
+    };
 
     #[test]
     fn test_order_and_chaos() {
         let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
 
-        let result = solver.solve(OrderAndChaosPosition::start());
+        let result = solver.solve(OrderAndChaosPositionD4Eq {
+            position: OrderAndChaosPosition::start(),
+        });
 
         println!("{:?}", result);
     }
