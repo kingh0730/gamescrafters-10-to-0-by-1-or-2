@@ -88,18 +88,17 @@ impl OrderAndChaosPosition {
         }
     }
 
+    /// Should not use if WIDTH != HEIGHT
     fn rotate_90(&self) -> Self {
         if WIDTH != HEIGHT {
             return self.clone();
         }
 
-        const LENGTH: usize = WIDTH;
+        let mut board = [[None; WIDTH]; HEIGHT];
 
-        let mut board = [[None; LENGTH]; LENGTH];
-
-        for i in 0..LENGTH {
-            for j in 0..LENGTH {
-                board[i][j] = self.board[LENGTH - j - 1][i];
+        for i in 0..WIDTH {
+            for j in 0..HEIGHT {
+                board[i][j] = self.board[HEIGHT - j - 1][i];
             }
         }
 
