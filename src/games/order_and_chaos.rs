@@ -1,6 +1,9 @@
 mod position;
 mod recursive_value;
 
+pub use self::position::OrderAndChaosPlayer;
+pub use self::position::OrderAndChaosPosition;
+
 use crate::solver::{PlayerMove, PrimitiveValue};
 
 // TODO Check bounds
@@ -39,3 +42,23 @@ pub struct OrderAndChaosMove {
 }
 
 impl PlayerMove for OrderAndChaosMove {}
+
+#[cfg(test)]
+mod tests {
+    use std::collections::HashMap;
+
+    use super::{OrderAndChaosPlayer, OrderAndChaosPosition};
+    use crate::solver::{GameResult, Solver};
+
+    #[test]
+    fn test_order_and_chaos() {
+        let mut solver = Solver::<_, _, _, GameResult>::new(HashMap::new());
+
+        let result = solver.solve(OrderAndChaosPosition {
+            board: [[None, None, None], [None, None, None], [None, None, None]],
+            player: OrderAndChaosPlayer::Order,
+        });
+
+        println!("{:?}", result);
+    }
+}
